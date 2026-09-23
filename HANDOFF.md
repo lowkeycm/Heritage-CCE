@@ -7,15 +7,15 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 - **When:** 2026-09-23.
 - **Who:** Clay, sole operator profile.
 - **Platform:** Codex / ChatGPT Work Mode.
-- **Request:** Begin the full aesthetic redesign after approved preview and completed scaffolding.
-- **Changed:** Seven-page static review build using the approved layered navy/orange design; current navigation routes; original shop/product imagery; white-before/black-after truck slider; facility lightbox; PeelClear pricing/application films; complete unchanged warranty. Contact and staff flows link to the current site. Dependency-free build/check scripts and Vercel review configuration added.
-- **Verification:** Build and route/content gates pass. All seven pages visually inspected at 1440×900 and 390×844 iframe layouts. Menu, gallery, slider keyboard/pointer interactions and live estimate destination tested. Mobile pricing and gallery sizing corrected and rechecked. See docs/verification.md for evidence and limits.
-- **Status:** Work is pushed through https://github.com/lowkeycm/Heritage-CCE/pull/2. At this final handoff commit, final preview verification, PR checks, merge and branch cleanup follow. GitHub and Vercel are authoritative for those subsequent events.
-- **Next:** Review the full-site design with Clay, then scope the remaining production integration migration from the actual existing application source. Do not replace the production domain while forms, photo uploads, chat and admin remain unmigrated.
+- **Request:** Restore Services trust bar, use Scroll Craft overlapping sections, add Services menu dropdown, upscale the central About shop photo.
+- **Changed:** Published trust figures restored; six compact photo-led panels layer on desktop; normal flow on phone/short viewports and reduced motion. Added accessible shared Services disclosure with six anchors. Enhanced About workshop photo, retaining original. Imported unchanged pinned Scroll Craft engine with license.
+- **Verification:** Build/check, syntax, whitespace pass. Services and About rendered at 1440×900 and 390×844. All panel transitions, dropdown keyboard/mobile behavior and direct navigation inspected. Sticky-anchor regression found, fixed and rechecked. Full evidence and capability limits in docs/verification.md.
+- **Status:** PR https://github.com/lowkeycm/Heritage-CCE/pull/3. At this final handoff commit, final deployment check, merge and branch deletion follow; GitHub/Vercel record subsequent events.
+- **Next:** Review these refinements with Clay, then continue the remaining production integration plan. No domain cutover until estimate/photo, chat and admin workflows are migrated and delivery verified.
 
 ## Where We Are
 
-The first full-site visual pass is implemented. This is a review milestone, not a finished production migration. The existing business website at https://heritagecce.com remains unchanged.
+The first full-site visual pass and requested Services/About refinements are implemented. This is a review milestone, not a finished production migration. The existing business website at https://heritagecce.com remains unchanged.
 
 **What works:** Home, Services, PeelClear, About, Facility, Contact and Warranty routes; consistent desktop/mobile navigation; real facility gallery; truck comparison; published pricing; existing estimate/staff links. Vercel automatically builds feature branches from this repo in project `heritage-cce`, id `prj_QVxX0xImRE7c83nQF2OAuEmCg7mi`, team `team_K0quIbtPFw7RIl9M7bG54yTE`. Build runs `npm run build && npm run check`.
 
@@ -56,3 +56,9 @@ Measured 2026-09-23 on Codex / ChatGPT Work Mode. Retest stale limitations.
 - Approved original visual reference: https://heritage-cce-design-preview.cmallory.chatgpt.site.
 
 Track local save, remote push, merge and deployment separately. A documentation commit does not mean the deployed app changed. Preserve acknowledgment requirements across platforms and operators.
+
+### Platform capability update, 2026-09-23, Codex / ChatGPT Work Mode
+
+Bootstrap repeated for Services refinement: HANDOFF/operator read; local Git identity set to lowkeycm/noreply; clay/services-scroll-craft branch; no overlapping remote branch; full source present; no dependency install required; build/check pass; actual live Services and branch previews rendered; no database work required. GitHub connector writes/PR and Vercel automatic branch deployment verified. Shell private Git authentication still unavailable; connector commit-author difference remains as documented.
+
+Marketing-Hub Scroll Craft integration alone was fetched read-only into an isolated reference directory and bundle integrity verified at Hub 0ab3fbcc29fb92f0f45b8f9b33f5782a8b83b85f, upstream 0b816225945e45380397d6a0487efa3c98916858. This does not make the partial sibling a full Hub checkout or install pointers. Node/ffmpeg preflight ready; optional local Chrome/KIE key absent. Cloud browser verified desktop/mobile and intermediate scroll states. OS reduced-motion preference toggle and physical phone remain untested.
