@@ -1,0 +1,7 @@
+import {readFile,access} from 'node:fs/promises';
+const routes=['/','/services','/about','/facility','/peelclear','/contact','/warranty'];
+const pages=new Map(await Promise.all(routes.map(async r=>[r,await readFile('dist'+(r==='/'?'':r)+'/index.html','utf8')])));let checked=0;
+for(const [route,html]of pages){if((html.match(/<h1[ >]/g)||[]).length!==1)throw Error(route+': expected one h1');if(!html.includes('noindex,nofollow'))throw Error('Missing preview indexing guard');if(/<<\w+>>|data-estimate|data-service=/.test(html))throw Error('Unresolved preview control: '+route);for(const [,url]of html.matchAll(/(?:href|src)="([^"]+)"/g)){if(!url.startsWith('/')&&!url.startsWith('#'))continue;const [path,hash]=url.split('#');const target=path||route;if(pages.has(target)){if(hash&&!pages.get(target).includes(`id="${hash}"`))throw Error(`Missing anchor ${route} -> ${url}`);}else{await access('dist'+target);}checked++;}}
+const home=pages.get('/');if(!/class="comparison-before" src="\/assets\/after.webp"/.test(home))throw Error('White before photo missing');if(!home.includes('type="range"'))throw Error('Truck slider missing');
+const original=JSON.parse(await readFile('src/content/warranty.json','utf8'));const decode=s=>s.replaceAll('&amp;','&').replaceAll('&lt;','<').replaceAll('&quot;','"');const legal=decode(pages.get('/warranty'));for(const x of original)if(!legal.includes(x.text))throw Error('Warranty text changed');
+console.log(`Checked ${routes.length} routes and ${checked} local links/assets; warranty text and truck ordering preserved.`);

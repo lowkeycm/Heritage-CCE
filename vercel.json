@@ -1,0 +1,1 @@
+{"framework":null,"buildCommand":"npm run build","outputDirectory":"dist","cleanUrls":true,"redirects":[{"source":"/admin","destination":"https://heritagecce.com/admin","permanent":false}],"headers":[{"source":"/(.*)","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow"}]}]}

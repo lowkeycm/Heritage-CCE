@@ -48,7 +48,7 @@ Fifteen rules. Every agent, every platform, every operator. Nothing in `people/`
 
 | Field | Value |
 | --- | --- |
-| What it is | New repository for the Heritage Commercial Collision website redesign. No application source is present. |
+| What it is | Heritage Commercial Collision Experts aesthetic redesign. Seven-page static design-review build; production cutover not complete. |
 | Business | Heritage Commercial Collision Experts; legal entity and DBA are UNVERIFIED. |
 | Live URL | https://heritagecce.com/ is the current existing site, reachable 2026-09-23. This new repo is not confirmed connected to it. |
 | Repo | github.com/lowkeycm/Heritage-CCE |
@@ -57,7 +57,7 @@ Fifteen rules. Every agent, every platform, every operator. Nothing in `people/`
 | Other systems | UNVERIFIED. No integrations are configured in this repo. |
 | Owner | Clay. See `people/clay.md`. |
 
-No approved source file for phone, address, legal name, hours, warranty, or consent language exists yet. Verify those against the current business site and owner-approved materials before importing them. Do not borrow identity facts from Heritage Coach or Total Detailing.
+Public business identity and source audit are recorded in docs/migration-status.md. Legal entity and conflicting opening hours still need owner confirmation. Do not borrow identity facts from Heritage Coach or Total Detailing.
 
 ### 2.2 Git identity and workflow
 
@@ -96,7 +96,7 @@ Record the operator in the Last Session block of `HANDOFF.md`.
 
 ### 2.4 Stack
 
-Verified 2026-09-23: the repository was empty before setup. It now contains documentation and the supplied Claude session hook only. No frontend, backend, package manifest, lockfile, application build tool, database config, or hosting config is present. The future implementation stack is UNVERIFIED and must not be inferred from another project or the separate design preview.
+Verified 2026-09-23: dependency-free Node >=22 static generator, semantic HTML/CSS, browser JavaScript. `scripts/build.mjs` writes `dist` from the approved homepage, content JSON and shared templates. `public/` contains original business photos and styles. No third-party packages or lockfile required. Existing live backend remains external; see `docs/migration-status.md`.
 
 ### 2.5 Secrets map
 
@@ -118,9 +118,11 @@ Run from the repository root.
 | `git diff --check` | Detect whitespace errors | 2026-09-23 |
 | `bash -n .claude/hooks/session-start.sh` | Validate hook shell syntax | 2026-09-23 |
 | `python -m json.tool .claude/settings.json > /dev/null` | Validate hook configuration JSON | 2026-09-23 |
-| Application install/build/test commands | Not configured; no package manifest or test suite | Not applicable to current docs-only repo |
+| `npm run build` | Generate seven routes and static assets | 2026-09-23 |
+| `npm run check` | Validate route/anchor/image destinations, warranty and truck mapping | 2026-09-23 |
+| `npm start` | Serve generated preview on port 4173 | Available |
 
-**Scaffolding gate: the three validation commands above must pass before every scaffolding commit.** Compare Section 1 byte-for-byte with the source template and ensure no template placeholders remain. No application build or test has passed because no application exists. Establish an actual build gate before implementation work.
+**Scaffolding gate: the three validation commands above must pass before every scaffolding commit.** Compare Section 1 byte-for-byte with the source template and ensure no template placeholders remain. Application gate: `npm run build && npm run check`. UI verification remains separately required.
 
 ### 2.7 Deploy process
 
@@ -137,7 +139,7 @@ https://heritage-cce-design-preview.cmallory.chatgpt.site
 
 Preserve existing site capabilities and verified content unless a change is approved. The truck comparison must retain white as Before and black as After, with a draggable slider.
 
-No design tokens or application source have been added to this repo. Marketing-Hub is the owner-required design guide; obtain and read its current README and relevant website skills before the first design session. No local sibling Hub checkout or skill pointers exist at bootstrap.
+Approved design is implemented using navy #1A2A4A and orange #E67451. Marketing-Hub website-system and relevant references were read from canonical GitHub sources. Full local Hub restore was blocked by automatic approval review; the partial sibling snapshot is not a usable checkout. Pointers remain uninstalled. See migration-status.md.
 
 ### 2.9 Copy doctrine
 
@@ -145,18 +147,18 @@ Doctrine item 10 applies. This is mainly an aesthetic redesign, not authorizatio
 
 ### 2.10 Identity facts, source of truth
 
-UNVERIFIED: legal name, address, phone, hours, warranty terms, consent text, and an approved canonical identity file. None is currently configured in this repository. Establish one reviewed source of truth before application import. Keep this collision business separate from Heritage Coach and Total Detailing.
+Current-site audited identity, sources and hours conflict are recorded in `docs/migration-status.md`. Warranty text lives in `src/content/warranty.json`; media provenance in `src/content/media-sources.json`. Legal entity and independent owner approval remain UNVERIFIED. Keep this collision business separate from Heritage Coach and Total Detailing.
 
 ### 2.11 Scope
 
-Default posture on this repo is **setup complete, awaiting the first active-build session**.
+Owner authorized active redesign implementation on 2026-09-23. Current milestone: seven-page visual review, preserving links to live inquiry and staff workflows. Production migration is incomplete.
 
 **In scope, just do it:**
 - Maintain the cross-platform instructions, operator profile, bootstrap checks, and honest handoff.
-- In the next requested implementation session, audit current navigation and behavior, load Marketing-Hub, inspect the approved preview source, and propose the bounded first redesign milestone.
+- Implement and verify the approved full-site aesthetic direction and review preview. Preserve current content and navigation routes.
 
 **Out of scope, ask first:**
-- This setup session stops after scaffolding and project-map work. No application import, redesign implementation, or deployment.
+- Production cutover, domain/DNS changes or replacing the current inquiry/admin backend require a verified migration plan.
 - Changes to business scope, navigation behavior, forms, or integrations beyond the agreed aesthetic redesign.
 - Schema changes, adding a dependency, secrets changes, editing identity strings, and anything touching another business's data.
 - Changing hosting, production domains, DNS, or infrastructure targets without verification and authorization.

@@ -70,3 +70,9 @@ Label incomplete checkpoints honestly. Track separately: local save, remote push
 (with SHA), merge (PR), deployment (URL and code SHA), and verification evidence.
 A later documentation commit does not imply the deployed application changed.
 Keep doctrine 12's acknowledgment rule intact so work by other operators is visible.
+
+## Active redesign checkpoint, 2026-09-23
+
+Clay authorized the first design build. Branch `clay/full-site-redesign`. Seven public routes implemented, real facility/product photographs imported, approved truck slider retained. Build and navigation/legal checks pass. Browser QA and review deployment are pending at this checkpoint; do not call the visual build verified yet. No production domain changes or customer-data submissions. Existing estimate, PeelClear inquiry and staff paths remain live links. See `docs/migration-status.md` for the integration boundary and source audit. No CI exists yet.
+
+Marketing-Hub canonical guidance was read. Local full-snapshot restore was interrupted by automatic approval review; the rejected action was classified as modifying unrelated Hub content. No remote Hub modification. Do not generate pointers against the partial sibling snapshot.
