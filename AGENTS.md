@@ -52,9 +52,9 @@ Fifteen rules. Every agent, every platform, every operator. Nothing in `people/`
 | Business | Heritage Commercial Collision Experts; legal entity and DBA are UNVERIFIED. |
 | Live URL | https://heritagecce.com/ is the current existing site, reachable 2026-09-23. This new repo is not confirmed connected to it. |
 | Repo | github.com/lowkeycm/Heritage-CCE |
-| Hosting | Current domain responds with Hostinger / Hostinger Horizons headers. Account, project identifier, and new repo deployment target are UNVERIFIED. |
-| Database | UNVERIFIED. No database config, schema, or owned tables/functions exist in this repo. |
-| Other systems | UNVERIFIED. No integrations are configured in this repo. |
+| Hosting | Current business domain remains Hostinger/Horizons. New design-review target is Vercel heritage-cce, documented in 2.7. |
+| Database | No new database configured. Legacy public source references zxzzmrkyctbgxlgjritv; ownership and isolation UNVERIFIED. See migration-status.md. No database writes authorized. |
+| Other systems | Review links to existing inquiry and staff workflows. Their migration and delivery verification remain open. |
 | Owner | Clay. See `people/clay.md`. |
 
 Public business identity and source audit are recorded in docs/migration-status.md. Legal entity and conflicting opening hours still need owner confirmation. Do not borrow identity facts from Heritage Coach or Total Detailing.
@@ -102,7 +102,7 @@ Verified 2026-09-23: dependency-free Node >=22 static generator, semantic HTML/C
 
 **Locations only. Never record a value here, in a commit, in a PR body, or in chat.**
 
-No application environment variables or secret locations are confirmed. There is no application code reading secrets. Hosting and database secret stores are UNVERIFIED.
+This static review build reads no secrets and requires no environment variables. Backend secret locations remain UNVERIFIED. Hosting uses the existing authenticated Vercel connector; do not extract credentials from browser state.
 
 - Never commit real `.env` files. The scaffold includes ignore rules for `.env` and `.env.*`.
 - Browser-exposed prefixes such as `VITE_` and `NEXT_PUBLIC_` are public, never secret.
@@ -126,9 +126,9 @@ Run from the repository root.
 
 ### 2.7 Deploy process
 
-No deployment integration or command is configured in this repository. Automatic deployments and target infrastructure are UNVERIFIED. A merge here must not be described as a website deployment.
+Verified 2026-09-23: Vercel project `heritage-cce` (`prj_QVxX0xImRE7c83nQF2OAuEmCg7mi`) under team `team_K0quIbtPFw7RIl9M7bG54yTE` / `pridefamilyrealty` is linked to `lowkeycm/Heritage-CCE`. Feature branches auto-deploy previews. `vercel.json` builds and checks the static `dist` output. Verify the deployment's Git SHA through the Vercel connector and render the actual URL.
 
-The existing site and the separate Sites design preview remain external references. Do not change DNS, hosting, production, or database configuration during scaffolding. Once a deployment is authorized and configured, confirm the exact target and verify the live surface.
+This is a review host. `heritagecce.com` stays on the existing Hostinger site. No DNS or production-domain change was made. Do not confuse Vercel's environment label "production" on the main-branch review host with a business-domain cutover. All generated pages and response headers block indexing. Remove these only with the launch gates in `docs/migration-status.md` complete.
 
 ### 2.8 UI and design standards
 
@@ -185,14 +185,19 @@ If items 8, 9, or 10 fail, you can still do useful work. You cannot describe tha
 ### 2.13 Repo map
 
 ```
-README.md                     Repository purpose and current setup-only state
-AGENTS.md                     Shared doctrine and verified project specifics
-CLAUDE.md                     Points Claude at AGENTS.md
-HANDOFF.md                    Session state, next step, platform limitations
-people/clay.md                Owner/operator profile copied from clay-config
-.claude/settings.json         Claude SessionStart hook registration
-.claude/hooks/session-start.sh Supplied bootstrap hook (executable)
-.gitignore                    Prevents real environment files from being committed
+scripts/build.mjs             Shared templates and seven-page static generator
+scripts/check.mjs             Build output route/content checks
+scripts/serve.mjs             Local generated-output server
+src/home.html                 Approved homepage source, main content imported by build
+src/content/                  Audited warranty and media provenance
+public/                       CSS, progressive JavaScript, original business images
+vercel.json                   Review hosting, build gate and noindex guards
+docs/migration-status.md      Current-site audit and production migration boundary
+docs/verification.md          Actual browser QA evidence and limitations
+campaigns/website-redesign/    Marketing-Hub design brief
+AGENTS.md / CLAUDE.md          Cross-platform instructions
+HANDOFF.md / people/clay.md    Session state and owner preferences
+.claude/                      Supplied session-start hook and settings
 ```
 
 ### 2.14 Gotchas
@@ -203,3 +208,5 @@ people/clay.md                Owner/operator profile copied from clay-config
 - 2026-09-23: Marketing-Hub was not checked out next door. Section 2.15 was removed per the setup request. Install pointers according to the actual Hub installer README when a sibling checkout becomes available; do not fabricate pointers.
 - 2026-09-23: Browser rendering was tested against the existing live site. Local application rendering remains UNVERIFIED because this repo has no application.
 - 2026-09-23: Existing design-preview truck assets have reversed filenames: `before.webp` shows the finished black truck; `after.webp` shows the white truck before refinishing. Verify the actual photos when importing.
+
+- 2026-09-23 update: application source and review deployment now exist. Earlier bootstrap-only observations above describe the initial state. Full Marketing-Hub checkout and skill-pointer installation remain incomplete after automatic approval review blocked the snapshot restore.
