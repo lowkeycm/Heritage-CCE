@@ -4,6 +4,10 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 
 ## Last Session
 
+**Follow-up, 2026-09-23, Clay / Codex Work Mode:** Owner requested a live, unprotected Vercel site. Production deployment 121b767 was already READY, but Standard Protection sent unauthenticated requests to its unique deployment URL to Vercel login. Disabled Require Log In for project heritage-cce with the explicit confirmation. Password protection was already off. Verified without cookies or bypass headers: https://heritage-cce.vercel.app/ and https://heritage-lucqezppy-pridefamilyrealty.vercel.app/services return HTTP 200 with actual Heritage page content, no login redirect. Use https://heritage-cce.vercel.app/ as the stable public share URL. Existing business domain and backend unchanged; noindex retained. Next session can continue from the public review.
+
+### Preceding design session
+
 - **When:** 2026-09-23.
 - **Who:** Clay, sole operator profile.
 - **Platform:** Codex / ChatGPT Work Mode.
