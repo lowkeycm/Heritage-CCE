@@ -1,72 +1,58 @@
 # HANDOFF
 
-Read both blocks below before starting work. Doctrine item 12 in `AGENTS.md` explains what to do with them: same operator, same platform, within 24 hours, pick up silently; anything else, read the Last Session block back and get acknowledgment before working.
-
-Every session ends by updating this file, committing, and pushing. Not committed means the session did not happen.
+Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: same operator/platform within 24 hours, continue silently; otherwise read the Last Session block back and obtain acknowledgment.
 
 ## Last Session
 
-- **When:** 2026-09-23
-- **Who:** Clay, resolved from the sole supplied operator profile. Authenticated platform account identity was not independently exposed.
-- **Platform:** Codex / ChatGPT Work Mode, branch `clay/agent-scaffolding`.
-- **Request:** Set up the full clay-config agent kit, run the bootstrap checklist, merge the scaffolding PR once checks pass, add this repo to the project map in a separate PR, then stop.
-- **Changed:** No customer-facing website changes. Added cross-platform instructions, operator profile, supplied Claude hook/settings, environment-file ignore rules, and this handoff. Source templates were read through the GitHub connector at clay-config commit `c3215f11490ffca53a779dc7cd6977568e6cc283`; Section 1 is unchanged.
-- **Verification:** Repository was empty; initialized only a README for the PR base. Inspected the full tree and branches. Ran docs/hook/config validation. Existing site returned HTTP 200 and rendered in the cloud browser; screenshot capture worked. No application build, tests, or local dev-server verification is possible yet because no application exists.
-- **Status:** Committed and pushed through [scaffolding PR #1](https://github.com/lowkeycm/Heritage-CCE/pull/1). At this handoff commit, the PR is ready for final checks and merge; GitHub's PR state is authoritative for the subsequent merge event.
-- **Next:** Begin the first real session by auditing current-site navigation and functionality, obtaining Marketing-Hub, and inspecting the approved Sites preview source before selecting a bounded redesign milestone.
+- **When:** 2026-09-23.
+- **Who:** Clay, sole operator profile.
+- **Platform:** Codex / ChatGPT Work Mode.
+- **Request:** Begin the full aesthetic redesign after approved preview and completed scaffolding.
+- **Changed:** Seven-page static review build using the approved layered navy/orange design; current navigation routes; original shop/product imagery; white-before/black-after truck slider; facility lightbox; PeelClear pricing/application films; complete unchanged warranty. Contact and staff flows link to the current site. Dependency-free build/check scripts and Vercel review configuration added.
+- **Verification:** Build and route/content gates pass. All seven pages visually inspected at 1440×900 and 390×844 iframe layouts. Menu, gallery, slider keyboard/pointer interactions and live estimate destination tested. Mobile pricing and gallery sizing corrected and rechecked. See docs/verification.md for evidence and limits.
+- **Status:** Work is pushed through https://github.com/lowkeycm/Heritage-CCE/pull/2. At this final handoff commit, final preview verification, PR checks, merge and branch cleanup follow. GitHub and Vercel are authoritative for those subsequent events.
+- **Next:** Review the full-site design with Clay, then scope the remaining production integration migration from the actual existing application source. Do not replace the production domain while forms, photo uploads, chat and admin remain unmigrated.
 
 ## Where We Are
 
-The new GitHub repo was empty at bootstrap. This setup establishes instructions only. The existing production site and design preview have not been imported, changed, or deployed by this session.
+The first full-site visual pass is implemented. This is a review milestone, not a finished production migration. The existing business website at https://heritagecce.com remains unchanged.
 
-**What works.** Authenticated GitHub connector reads and writes; full public repo fetch; local required git identity; canonical template retrieval. Existing https://heritagecce.com/ returned HTTP 200 and rendered in the cloud browser.
+**What works:** Home, Services, PeelClear, About, Facility, Contact and Warranty routes; consistent desktop/mobile navigation; real facility gallery; truck comparison; published pricing; existing estimate/staff links. Vercel automatically builds feature branches from this repo in project `heritage-cce`, id `prj_QVxX0xImRE7c83nQF2OAuEmCg7mi`, team `team_K0quIbtPFw7RIl9M7bG54yTE`. Build runs `npm run build && npm run check`.
 
-**What is in progress.** Final merge/cleanup of [Heritage-CCE PR #1](https://github.com/lowkeycm/Heritage-CCE/pull/1) and [clay-config project-map PR #3](https://github.com/lowkeycm/clay-config/pull/3). These are documentation only. Check the PRs for completion after this pre-merge handoff commit. No redesign implementation is in progress.
+**Review evidence:** Initial reviewed app commit `c248015b93a9076fe0dfd53a8fbc7b7cbba9516c`; exact-viewport QA commit `949d2100f0a22a2ba8b15c1dbc92f95e46f84eb4`; mobile correction `4e293ebf07017c47122fa562ca450cc0faa0c92b` at https://heritage-brzvyoz1d-pridefamilyrealty.vercel.app. Later deployment SHA is available on PR #2. The temporary review frame is removed before merge.
 
-**What is broken or unresolved.** There is no app, package manifest, lockfile, test suite, CI workflow, hosting configuration, database configuration, approved identity-data file, or local Marketing-Hub checkout. This is expected for the new repo, not evidence that the live business site is broken.
+**Still open:** Existing estimate/contact/photo delivery, PeelClear inquiry, chat and staff integration migration. Legacy Supabase references are documented, but ownership/isolation/auth/delivery are unverified. No DB writes or test messages were sent. The current site has conflicting opening hours: primary contact 7am, PeelClear body 8am. Prices need reconfirmation before launch. Legal entity unverified. Production domain/DNS plan not changed.
 
-**What could not be determined from here.** New repo hosting target, database/integrations, live-site source ownership/configuration, and canonical business identity facts are UNVERIFIED. Headers identify Hostinger/Horizons for the existing domain, not a confirmed deployment connection for this repo. Local dev-server rendering is UNVERIFIED. Connector commit authorship uses the account email rather than the locally configured noreply email.
+**Marketing-Hub:** Canonical README, installer instructions, website-system and relevant references were read through authenticated GitHub, including copy calibration. Full local snapshot restore was interrupted by automatic approval review, classified as unrelated Hub changes. No Hub remote writes were made. The partial sibling tree is not an installed checkout; do not generate pointers from it. Obtain a complete checkout before skill-pointer installation. No additional permission needed for the completed design work; any renewed blocked Hub-write action requires resolving the review rejection first.
 
-**Open owner actions.** None needed to complete the docs setup. Hosting/stack choices and any inaccessible source or integration details need resolution during the first build session.
-
-**Next concrete step.** After the required handoff acknowledgment when applicable, load the current Marketing-Hub guide and audit heritagecce.com's navigation and working flows alongside the approved design preview. Preserve the mainly aesthetic scope, brand colors, layered treatment, and white-before/black-after slider. Do not recreate source from screenshots if the approved preview source can be recovered.
+**Next concrete step:** Design review, then retrieve the current application source and verify the Heritage CCE-owned backend resources before porting the live submission/admin flows. Follow docs/migration-status.md; do not invent backend configuration from public bundle references.
 
 ## Platform capability notes
 
-These are dated observations, not permanent truths. Retest any "cannot" older than its date before relying on it, and update when reality changes (doctrine 15).
-
-### Codex / ChatGPT Work Mode, measured 2026-09-23
+Measured 2026-09-23 on Codex / ChatGPT Work Mode. Retest stale limitations.
 
 | Bootstrap item | Result |
 | --- | --- |
-| 1. Handoff read | PASS: read the actual template; no previous repository session existed. Created the first Last Session and Where We Are blocks. |
-| 2. Operator identified | PASS: only one supplied profile, Clay. No inference from commit identity. |
-| 3. Git identity set | PASS locally: lowkeycm / lowkeycm@users.noreply.github.com. Connector-generated remote commits use the connected account email; author override is unavailable. |
-| 4. Branch created | PASS: clay/agent-scaffolding locally and remotely. |
-| 5. Other branches checked | PASS: git branch -r --sort=-committerdate. Only main and this scaffolding branch existed. |
-| 6. Full working tree present | PASS: public Git fetch plus complete tree inspection; sparse checkout disabled/not configured. Initially no files; README is the initialization base. |
-| 7. Dependencies installed | N/A: no package manifest or dependency lockfile. No packages installed. |
-| 8. Build gate runnable | Documentation gate passes: whitespace, hook syntax, settings JSON, unchanged Section 1, no placeholders. Application build is N/A, not passed. |
-| 9. Browser rendering available | PASS for cloud browser: loaded the actual live site and captured a screenshot (31,838 bytes). Local application/dev server is UNVERIFIED, no app exists here. |
-| 10. Live site reachable | PASS independently: HTTPS HEAD returned 200 for https://heritagecce.com/; cloud browser title was Heritage Commercial Collision Experts - Elite Fleet Specialists. |
-| 11. Database reachable | UNVERIFIED / not required for scaffolding. No database target is configured; no unrelated database was queried. |
-| 12. GitHub reachable | PASS for connector reads and writes; branch creation succeeded. PR #1 opened successfully; merge follows final checks. Private Git clone authentication failed; public Git fetch works. |
-| CI/test suite | None in the complete repo tree. No test suite or CI workflow to run. |
-| Marketing-Hub pointers | Not installed: no ../Marketing-Hub checkout. Section 2.15 deleted as explicitly requested. Supplied hook retained. |
-
-These checks verify scaffolding only, not the future redesigned website.
+| Handoff/operator | PASS: read prior handoff; same operator and platform within 24 hours; Clay sole profile. |
+| Git identity | PASS locally: lowkeycm / lowkeycm@users.noreply.github.com. Remote connector author uses account email and exposes no override. Exact local/remote content tree verified at first checkpoint. |
+| Branch/other work | PASS: clay/full-site-redesign; remote branches checked before work. |
+| Complete checkout | PASS for Heritage-CCE, public git fetch available, not sparse. |
+| Dependencies | N/A: Node static implementation uses no third-party packages. |
+| Build | PASS: npm run build/check, JS syntax, whitespace, hook syntax. 7 routes and 231 local destinations checked. |
+| Browser | PASS: actual Vercel app rendered in cloud browser; exact 1440×900 and 390×844 layout frames. OS reduced-motion toggle and physical touch-device testing not exercised. |
+| Existing live site | PASS: reachable and rendered; actual contact form destination verified without submission. |
+| Database | UNVERIFIED, no database access required for visual review. No data mutations. |
+| GitHub | PASS: authenticated connector blob/tree/commit/ref and PR workflows; public Git fetch. Private shell Git auth unavailable. |
+| Deploy | PASS: Vercel Git integration built review commits; SHA verified by list_deployments. Connector get_project schema mismatch, but list_projects/deployments work. |
+| CI | No GitHub Actions workflow. Vercel executes the build/content-check gate. |
+| Hub pointers | NOT INSTALLED: canonical reads work, full local restore blocked by automatic approval review; partial tree must not be treated as complete. |
 
 ## Recovery checkpoints
 
-- Initial main README: `d37d1191a95213f1f28fbcbee399c80d6157f1d1`.
-- First remote scaffolding checkpoint: `9c061df6c3d93d7439f11cf7b9c30e3cd3995385`, matching the verified local file tree.
-- Scaffolding: https://github.com/lowkeycm/Heritage-CCE/pull/1.
-- Separate map update: https://github.com/lowkeycm/clay-config/pull/3.
-- Deployments: none. Current-site reachability and browser capability are not verification of a new website build.
+- Scaffolding PR #1 merged: https://github.com/lowkeycm/Heritage-CCE/pull/1.
+- Project-map PR #3 merged: https://github.com/lowkeycm/clay-config/pull/3.
+- Original scaffolding main: b48ffb8359cad522a058b13737109ee28c39e760.
+- Redesign PR #2: https://github.com/lowkeycm/Heritage-CCE/pull/2.
+- Approved original visual reference: https://heritage-cce-design-preview.cmallory.chatgpt.site.
 
-
-Push meaningful work to the branch during long sessions, not only at the end.
-Label incomplete checkpoints honestly. Track separately: local save, remote push
-(with SHA), merge (PR), deployment (URL and code SHA), and verification evidence.
-A later documentation commit does not imply the deployed application changed.
-Keep doctrine 12's acknowledgment rule intact so work by other operators is visible.
+Track local save, remote push, merge and deployment separately. A documentation commit does not mean the deployed app changed. Preserve acknowledgment requirements across platforms and operators.
