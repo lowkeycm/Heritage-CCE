@@ -161,7 +161,7 @@ Owner authorized active redesign implementation on 2026-09-23. Current milestone
 **In scope, just do it:**
 - Maintain the cross-platform instructions, operator profile, bootstrap checks, and honest handoff.
 - Implement and verify the approved full-site aesthetic direction and review preview. Preserve current content and navigation routes.
-- Maintain the collision lead intake described in 2.15: its tables, storage bucket, edge functions and the staff page (Clay, 2026-09-29). Database changes inside those objects and SQL checks are pre-approved.
+- Maintain the collision lead intake described in 2.15: its tables, storage bucket, edge functions, the staff page and the estimate app at `/estimate/` (Clay, 2026-09-29). Database changes inside those objects and SQL checks are pre-approved.
 
 **Out of scope, ask first:**
 - Production cutover and domain/DNS changes. At cutover the old heritagecce.com form backend is retired (see 2.15); that happens only when Clay switches the site over.
@@ -199,8 +199,11 @@ src/content/                  Audited warranty and media provenance
 public/                       CSS, progressive JavaScript, original business images
 public/lead-form.js           Contact form sender (same file as js/lead-form.js in Heritage-Collision-Retail)
 public/staff/                 Staff leads page (sign-in link, leads for both brands, people and alert emails)
+public/estimate/              Phone estimate app (replaces the Lovable app at estimate.heritagecce.com)
+public/vendor/zxing/          Pinned ZXing 0.23.0 barcode reader (Apache-2.0) for VIN scanning on iPhone
 supabase/migrations/          Lead database schema applied to zxzzmrkyctbgxlgjritv
-supabase/functions/           Edge functions: submit-lead (website forms), staff-login (sign-in email)
+supabase/functions/           Edge functions: submit-lead (website forms), staff-login (sign-in email), estimate (estimate app)
+docs/estimate-app.md          Estimate app: what it does, old app status, switch steps
 vercel.json                   Review hosting, build gate and noindex guards
 docs/migration-status.md      Current-site audit and production migration boundary
 docs/verification.md          Actual browser QA evidence and limitations
@@ -221,7 +224,8 @@ HANDOFF.md / people/clay.md    Session state and owner preferences
 
 - 2026-09-23 update: application source and review deployment now exist. Earlier bootstrap-only observations above describe the initial state. Full Marketing-Hub checkout and skill-pointer installation remain incomplete after automatic approval review blocked the snapshot restore.
 - 2026-09-29: The sandbox's Playwright Chromium rejects the network proxy certificate, so it cannot reach Supabase. Test the edge functions with curl and the staff page with mocked responses; the real sign-in has to be clicked by a person. Do not disable certificate checks to get around it.
-- 2026-09-29: Staff sign-in does not use Supabase's own email templates or redirect settings. `staff-login` generates a one-time token and emails a link through Resend; the page exchanges it at `/auth/v1/verify`. Changing the staff page address means updating `ALLOWED_PAGES` in that function and `STAFF_PAGE` in `submit-lead`.
+- 2026-09-29: Staff sign-in does not use Supabase's own email templates or redirect settings. `staff-login` generates a one-time token and emails a link through Resend; the page exchanges it at `/auth/v1/verify`. Changing the staff page address means updating `ALLOWED_PAGES` in that function, `STAFF_PAGE` in `submit-lead` and `estimate`, and the `/admin` and `/staff` redirects for estimate.heritagecce.com in `vercel.json`.
+- 2026-09-29: The estimate app only makes QR codes for addresses in `QR_ORIGINS` in the `estimate` function. A new host for the app must be added there first. On estimate.heritagecce.com, `vercel.json` shows the app at `/` and sends the old Lovable paths to it.
 
 ### 2.15 Lead database (Heritage Collision)
 
@@ -231,12 +235,14 @@ What this repo owns in that project:
 
 | Object | Purpose |
 | --- | --- |
-| `public.leads` | One row per website lead. `brand` is `commercial` (this site) or `retail` (Heritage Collision Experts). Staff may change only `status` and `staff_notes`. |
+| `public.leads` | One row per lead. `brand` is `commercial` (this site, and company vehicles from the estimate app) or `retail` (Heritage Collision Experts, and personal vehicles from the estimate app). `source` is `website` or `estimate-app`; estimate app leads also fill `reference` (HCC-YYYY-NNNNNN), VIN, vehicle, plate, mileage, `damage_areas`, rush and needed-by. Staff may change only `status` and `staff_notes`. |
+| `public.estimate_sessions` | Estimate app drafts, so a customer can start on a computer and finish on a phone. Reached only through the `estimate` function (token stored hashed); no direct access for anyone. Unsent drafts expire after 7 days and are removed with their photos. |
 | `public.staff_members` | Who can sign in, by email. `can_manage_staff` lets them add or remove people and change alert emails. Started with Clay, Addaie and Tom. |
 | `public.lead_alert_recipients` | Who gets the new-lead email for each brand. Addaie for both until Clay sets up a dedicated address. Editable on the staff page. |
 | Storage bucket `lead-photos` | Private customer photos. Only signed-in staff can view them. |
 | Edge function `submit-lead` | Public form endpoint for both sites (multipart form data, `brand` field required, up to 10 photos). Saves, stores photos, emails the alert with photos attached. Called by `public/lead-form.js` on this site's Contact page and by the identical `js/lead-form.js` on the retail site's Contact page; keep the two copies the same. |
 | Edge function `staff-login` | Emails a one-time sign-in link to people on the staff list only. |
+| Edge function `estimate` | Backend for `/estimate/`: start, save, load, photo upload to `lead-photos/estimate/`, QR code, status and submit. Submit creates the lead and emails the alert with photos. |
 | `is_staff()`, `can_manage_staff()` | Access checks used by the row level security policies. |
 
 Everything else in the project is legacy. The old heritagecce.com form (`estimate_requests`, `hccesettings`, bucket `estimate-photos`, functions `get-form-settings`, `submit-estimate-form`, `request-estimate`, `send-form-email`, `chatbot-handler`, and the n8n hookup) keeps serving the live site until cutover; retire it then. The old content tool tables, buckets, functions and logins are no longer needed (Clay, 2026-09-29) and can be removed once nothing points at them. The 23 old estimate requests do not need to be kept.
