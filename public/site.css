@@ -41,3 +41,7 @@
 @media(max-width:1000px){.family-cards{grid-template-columns:1fr}.family-card{min-height:330px;padding:30px}.family-brand-art{right:0;top:-15px;width:45%;height:360px}.family-card--detailing .family-brand-art{right:10px;width:40%}.family-card h3,.family-card-copy>p:not(.family-purpose){max-width:65%}.family-purpose{margin-bottom:25px!important}.family-card:before{background:linear-gradient(90deg,#f4f8fcfa 4%,#f4f8fcd9 45%,#e1eaf240 100%)}}
 @media(max-width:600px){.family-card{min-height:420px;padding:28px 24px}.family-brand-art{width:290px;right:-110px;top:20px}.family-card--detailing .family-brand-art{width:270px;right:-95px}.family-card h3,.family-card-copy>p:not(.family-purpose){max-width:100%}.family-purpose{max-width:220px}.family-footer{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){.family-card,.family-action>span{transition:none}.family-card:hover{transform:none}}
+.family-purpose{min-height:32px;margin-bottom:40px!important}
+.family-card--coach .family-brand-art{width:540px;height:510px;right:-185px;top:-45px}
+@media(max-width:1000px){.family-purpose{margin-bottom:25px!important}.family-card--coach .family-brand-art{width:520px;right:-90px;top:-85px}}
+@media(max-width:600px){.family-card--coach .family-brand-art{width:460px;right:-200px;top:-40px}}

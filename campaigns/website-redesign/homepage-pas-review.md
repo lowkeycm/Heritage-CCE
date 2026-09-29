@@ -35,3 +35,7 @@ No performance uplift is claimed. After launch and verified inquiry tracking, co
 ## Scope and review
 
 Homepage copy, its metadata and a compact PAS bridge only. Existing design, images, comparison slider, shared navigation, interior pages and live inquiry destination remain in place. public/copy-review.html provides fixed desktop/mobile frames for review; remove this review helper before any eventual merge. Build/content checks pass. Browser and deployment evidence recorded in HANDOFF.md after inspection. User requested preview before merge, overriding default automatic-merge cadence.
+
+## Heritage family follow-up, 2026-09-29
+
+Owner liked the PAS preview and authorized customer-focused connections to Total Detailing, retail Heritage Collision Experts and Heritage Coach. Reused the integrated background-logo card approach actually rendered on Retail About and Coach Services. One shared card component appears on Home and Services; compact links appear sitewide in the footer. Existing published logos copied from Retail assets, resized/encoded as WebP without redesign. All three destination hosts returned 200. Retail uses its public revamped Vercel URL pending domain confirmation. No shared inquiry backend implied. Preview remains unmerged, stacked PR #6 on #5.
