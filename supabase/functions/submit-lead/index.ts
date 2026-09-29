@@ -27,6 +27,7 @@ const FIELDS: Record<string, [string, number]> = {
   phone: ["Phone", 40],
   email: ["Email", 254],
   business_name: ["Business", 160],
+  service: ["Needs help with", 80],
   preferred_contact: ["Preferred contact", 40],
   best_time: ["Best time to reach", 80],
   vehicle: ["Vehicle", 160],
