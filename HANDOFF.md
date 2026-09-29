@@ -4,6 +4,14 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 
 ## Last Session
 
+**2026-09-29, Clay / Codex Work Mode:** Owner requested a PAS homepage rewrite and preview before merge after the read-only original/redesign comparison. Implemented downtime-focused hero, concrete business consequences, specialty-repair solution, supporting work/process copy and estimate CTA. Marketing Hub copy and claims guidance applied; rationale in campaigns/website-redesign/homepage-pas-review.md. Draft PR #5 is OPEN and MUST NOT be merged until Clay approves. Preview: https://heritage-qgfddsl8k-pridefamilyrealty.vercel.app/ at app commit 5c61a1da5383d24ab70e41ac2fe4a85203f5e8df, Vercel READY and unauthenticated HTTP 200. Main remains f1fa547.
+
+Build/content checks pass (7 routes, 275 links/assets), whitespace clean. Cloud browser inspected desktop and mobile fixed frames (1440×900 and 390×844; scrollbar reduces content widths to 1425 and 375). Hero, PAS bridge and FAQ inspected; no horizontal document overflow in either frame. Slider keyboard input updates aria-valuetext to 51% before / 49% after. Full mobile section-by-section and physical-touch testing remain unverified. Initial review checkpoint committed before visual inspection because local browser download failed; cloud visual inspection followed the branch deployment. Local/remote content trees match (129f1a0). Screenshot saved for owner review.
+
+**Next:** Read Clay's copy feedback on PR #5. Make requested revisions, remove public/copy-review.html before eventual merge, then recheck and merge only after approval. The original business domain and main Vercel site are unchanged. No backend or infrastructure settings changed.
+
+### Previous session
+
 **Follow-up, 2026-09-23, Clay / Codex Work Mode:** Owner requested a live, unprotected Vercel site. Production deployment 121b767 was already READY, but Standard Protection sent unauthenticated requests to its unique deployment URL to Vercel login. Disabled Require Log In for project heritage-cce with the explicit confirmation. Password protection was already off. Verified without cookies or bypass headers: https://heritage-cce.vercel.app/ and https://heritage-lucqezppy-pridefamilyrealty.vercel.app/services return HTTP 200 with actual Heritage page content, no login redirect. Use https://heritage-cce.vercel.app/ as the stable public share URL. Existing business domain and backend unchanged; noindex retained. Next session can continue from the public review.
 
 ### Preceding design session
@@ -18,6 +26,8 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 - **Next:** Review these refinements with Clay, then continue the remaining production integration plan. No domain cutover until estimate/photo, chat and admin workflows are migrated and delivery verified.
 
 ## Where We Are
+
+**Current review:** PAS homepage copy exists only on clay/homepage-pas-copy / draft PR https://github.com/lowkeycm/Heritage-CCE/pull/5. Await owner approval; do not follow the default automatic merge rule for this branch. Existing main remains the earlier design. The fixed-size review helper is temporary and must be removed before merging.
 
 The first full-site visual pass and requested Services/About refinements are implemented. This is a review milestone, not a finished production migration. The existing business website at https://heritagecce.com remains unchanged.
 
@@ -66,3 +76,13 @@ Track local save, remote push, merge and deployment separately. A documentation 
 Bootstrap repeated for Services refinement: HANDOFF/operator read; local Git identity set to lowkeycm/noreply; clay/services-scroll-craft branch; no overlapping remote branch; full source present; no dependency install required; build/check pass; actual live Services and branch previews rendered; no database work required. GitHub connector writes/PR and Vercel automatic branch deployment verified. Shell private Git authentication still unavailable; connector commit-author difference remains as documented.
 
 Marketing-Hub Scroll Craft integration alone was fetched read-only into an isolated reference directory and bundle integrity verified at Hub 0ab3fbcc29fb92f0f45b8f9b33f5782a8b83b85f, upstream 0b816225945e45380397d6a0487efa3c98916858. This does not make the partial sibling a full Hub checkout or install pointers. Node/ffmpeg preflight ready; optional local Chrome/KIE key absent. Cloud browser verified desktop/mobile and intermediate scroll states. OS reduced-motion preference toggle and physical phone remain untested.
+
+### Platform capability update, 2026-09-29, Codex Work Mode
+
+- Handoff read; owner continued the same-day copy comparison with explicit rewrite authorization. Clay sole profile.
+- Local identity set to lowkeycm / lowkeycm@users.noreply.github.com before branch/commit. Full public clone, no dependencies. Only main existed remotely at start.
+- Local git push cannot authenticate; authenticated GitHub connector created equivalent tree/commit and draft PR. Connector author email is account-managed, not the locally configured noreply identity.
+- Build/check and whitespace pass. No GitHub Actions workflow; Vercel executes build/check.
+- Local Playwright package exists but browser download failed. Cloud browser works; fixed-size frames verified as described above. No mobile device emulation/physical touch claim.
+- Existing and preview sites reachable. Preview unauthenticated HTTP 200 and visible revised copy, deployment SHA verified.
+- Database unnecessary and untouched. Marketing Hub canonical reads worked; no local skill-pointer installation performed.
