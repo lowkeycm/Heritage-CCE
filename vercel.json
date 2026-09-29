@@ -6,7 +6,7 @@
   "redirects": [
     {
       "source": "/admin",
-      "destination": "https://heritagecce.com/admin",
+      "destination": "/staff/",
       "permanent": false
     }
   ],
