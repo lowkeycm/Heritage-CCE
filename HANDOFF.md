@@ -4,6 +4,10 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 
 ## Last Session
 
+**Placement correction, 2026-09-29, Clay / Codex Work Mode:** Owner directed the Heritage family cards to About. Removed the card section from Home and Services and placed it before the About closing contact section. Kept sitewide footer links. No card content or styling changes. Same active review branch/PR #6, still unmerged. Review URL: https://heritage-cce-git-clay-heritage-family-links-pridefamilyrealty.vercel.app/about#heritage-family . Build/check and explicit route placement checks pass; preview rendering follows deployment. This supersedes the Home/Services placement described below.
+
+### Previous follow-up
+
 **Follow-up 2026-09-29, Clay / Codex Work Mode:** Owner liked the PAS preview and requested links to the other Heritage businesses using the revamped Retail/Coach designs as references. Added three integrated-logo cards to Home and Services and a family navigation row in every footer. Cards connect commercial customers to Total Detailing (cleaning/detailing/paint protection), Heritage Collision Experts (personal/everyday fleet repairs), and Heritage Coach (new/pre-owned hearses). Inspected Retail About directory and Coach Services cards in the browser and read their source. Reused their exact published logos as optimized WebP assets. Small final polish aligns card headings and enlarges the Coach background mark.
 
 **Review status:** Draft PR #6 targets clay/homepage-pas-copy, stacking on PR #5. Both remain unmerged. New preview branch clay/heritage-family-links includes the approved-looking PAS draft plus the family links. Stable preview: https://heritage-cce-git-clay-heritage-family-links-pridefamilyrealty.vercel.app/#heritage-family . Wait for owner feedback before merging. When approved, merge #6 into #5, remove public/copy-review.html, rerun checks, then merge #5 to main.
