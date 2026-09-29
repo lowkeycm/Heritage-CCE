@@ -4,6 +4,18 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 
 ## Last Session
 
+- **When:** 2026-09-29.
+- **Who:** Clay, sole operator profile.
+- **Platform:** Claude Code on the web (cloud session with Heritage-CCE, Heritage-Coach, Heritage-Collision-Retail and heritage-ops checked out).
+- **Request:** Inspect the Heritage Supabase projects, then set up one lead database for both collision businesses (commercial = this site, retail = Heritage Collision Experts) and a place for Clay, Addaie and Tom to see leads.
+- **Decided (Clay):** Reuse and rename the old "Heritage Coach" project `zxzzmrkyctbgxlgjritv` as Heritage Collision. Its content tool is no longer needed. The 23 old estimate requests do not need to survive the switch. Addaie gets new-lead emails until a dedicated address exists. Clay, Addaie and Tom can sign in and add others. The body shop runs jobs in CCC ONE; the Pipedrive and CCC links are a later step.
+- **Changed:** New tables `leads`, `staff_members`, `lead_alert_recipients`, private bucket `lead-photos`, edge functions `submit-lead` and `staff-login` (all in `supabase/`), and the staff page at `/staff/`. Nothing old in the project was modified. Details in AGENTS.md 2.15.
+- **Verification:** Row level security tested by SQL as anonymous, a signed-in non-staff login and a staff member. A real test lead with two photos was saved, both photos stored privately, and Resend accepted the alert email (sent to clay@relevaint.io while testing). Anonymous reads of leads and photos are refused. Staff page rendered at 1440x900 and 390x844 with mocked data; see docs/verification.md. The sandbox browser cannot reach Supabase (proxy certificate), so the real emailed sign-in has not been clicked yet. That is Clay's first check.
+- **Open items:** (1) Clay: confirm the test alert email arrived, then sign in at https://heritage-cce.vercel.app/staff/ with clay@relevaint.io. (2) Delete the test lead "TEST Clay (please ignore)" and its photos after that check. (3) Step 2: point this site's contact form and the Heritage Collision Experts form at `submit-lead`. (4) Rename the project in the Supabase dashboard (only Clay can; no API for it here).
+- **Branch:** `claude/great-cori-4rksfl` (the session platform assigns the branch name; AGENTS.md asks for `clay/...`).
+
+### Preceding sessions
+
 **Follow-up, 2026-09-23, Clay / Codex Work Mode:** Owner requested a live, unprotected Vercel site. Production deployment 121b767 was already READY, but Standard Protection sent unauthenticated requests to its unique deployment URL to Vercel login. Disabled Require Log In for project heritage-cce with the explicit confirmation. Password protection was already off. Verified without cookies or bypass headers: https://heritage-cce.vercel.app/ and https://heritage-lucqezppy-pridefamilyrealty.vercel.app/services return HTTP 200 with actual Heritage page content, no login redirect. Use https://heritage-cce.vercel.app/ as the stable public share URL. Existing business domain and backend unchanged; noindex retained. Next session can continue from the public review.
 
 ### Preceding design session
@@ -18,6 +30,8 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 - **Next:** Review these refinements with Clay, then continue the remaining production integration plan. No domain cutover until estimate/photo, chat and admin workflows are migrated and delivery verified.
 
 ## Where We Are
+
+**Lead database (2026-09-29):** Heritage Collision lead intake is live in Supabase project `zxzzmrkyctbgxlgjritv`, and the staff page is at `/staff/` on this site. Neither website form sends to it yet; that is the next step. Alerts go to Addaie for both brands. The current heritagecce.com form still uses the old tables and functions in the same project and keeps working until cutover. At cutover: point `STAFF_PAGE` and `ALLOWED_PAGES` at heritagecce.com, retire the old form functions, `estimate_requests`, `hccesettings`, the public `estimate-photos` bucket and the n8n hookup. The old content tool can be removed any time.
 
 The first full-site visual pass and requested Services/About refinements are implemented. This is a review milestone, not a finished production migration. The existing business website at https://heritagecce.com remains unchanged.
 
