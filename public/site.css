@@ -12,3 +12,10 @@
 @media(prefers-reduced-motion:reduce){.service-panel{position:relative}.service-panel-surface{transform:none}.services-toggle span{transition:none}}
 
 .service-anchor{display:block;height:0;scroll-margin-top:12px;outline:none}
+
+/* Homepage PAS bridge: business stakes before service selection. */
+.downtime{display:grid;grid-template-columns:1fr 1fr;gap:64px;background:#f3f5f8;padding-bottom:75px}
+.downtime h2{max-width:640px}.downtime-copy{max-width:570px;color:#4e6076;font-size:18px;line-height:1.7}.downtime-copy p{margin:0 0 20px}.downtime-copy p:last-child{margin-bottom:0;color:#1a2a4a}
+.downtime+.expertise{padding-top:75px}
+@media(max-width:850px){.downtime{gap:30px}}
+@media(max-width:600px){.downtime{grid-template-columns:1fr;gap:24px;padding-bottom:55px}.downtime-copy{font-size:16px}.downtime+.expertise{padding-top:55px}}
