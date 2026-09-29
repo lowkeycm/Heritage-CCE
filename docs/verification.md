@@ -38,3 +38,14 @@ Branch clay/services-scroll-craft, PR #3. Published Services trust figures confi
 - Reduced-motion fallback is implemented but OS preference toggling remains unavailable in this browser. No physical phone test. Browser logs contain extension metadata errors, no observed site JavaScript errors.
 
 The initial remote checkpoint was necessary to render this shell's changes on the connected cloud browser; final verification precedes the final commit/merge. Temporary QA route removed before merge.
+
+## Lead database and staff page, 2026-09-29
+
+Claude Code on the web. Supabase project `zxzzmrkyctbgxlgjritv`.
+
+- **Access rules, by SQL role simulation:** anonymous callers are refused on `leads`, `staff_members` and `lead_alert_recipients`. A signed-in person not on the staff list sees 0 leads, 0 staff and 0 recipients, and cannot update. A staff member sees leads and can update status and notes; `updated_by` records their email. Editing a customer field (`name`) is refused. A manager can add a person (`added_by` recorded from their login) and cannot remove themselves. All tests ran inside rolled-back transactions.
+- **Storage:** existing storage policies are all scoped to other buckets; only the new staff policy touches `lead-photos`. Public and anon-key requests for a stored lead photo are refused.
+- **Form endpoint (`submit-lead`), with curl:** unknown brand, missing phone and email, and a non-photo file are rejected with plain messages. A filled hidden trap field returns success without saving. A real commercial test lead with two WebP photos saved, both photos stored under `commercial/<lead id>/`, and `alert_sent_at` was set with no error (Resend accepted the email). Delivery to the inbox has to be confirmed by Clay.
+- **Sign-in (`staff-login`), with curl:** an address not on the staff list gets the same success response and no email; a malformed address is rejected. Supabase's verify endpoint accepts the token type the page sends (a fake token returns "invalid or has expired").
+- **Staff page, Playwright at 1440x900 and 390x844:** signed-out screen; lead list with brand, status, photo count and failed-alert tags; lead detail with call and email buttons, fields, photos and follow-up form; People and alerts screen for a manager; brand and status filters; the `?lead=` link from the alert email opening that lead; an expired sign-in link showing a clear message and clearing the address bar. No JavaScript errors. Leads, staff and photos were mocked in the browser for these screenshots. A bug where lead details printed "null" and "[object HTMLElement]" was found in the first pass, fixed and rechecked.
+- **Not verified here:** the real emailed sign-in and live data in the page, because the sandbox browser rejects the network proxy certificate and cannot reach Supabase. First real check: Clay signs in at https://heritage-cce.vercel.app/staff/.
