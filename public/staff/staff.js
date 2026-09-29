@@ -9,7 +9,7 @@
   const BRAND_LABEL = { commercial: 'Commercial', retail: 'Retail' };
   const STATUS_LABEL = { new: 'New', contacted: 'Contacted', closed: 'Closed' };
   const FIELDS = [
-    ['phone', 'Phone'], ['email', 'Email'], ['business_name', 'Business'],
+    ['phone', 'Phone'], ['email', 'Email'], ['business_name', 'Business'], ['service', 'Needs help with'],
     ['preferred_contact', 'Preferred contact'], ['best_time', 'Best time to reach'],
     ['vehicle', 'Vehicle'], ['vehicle_type', 'Vehicle type'], ['insurance', 'Insurance'],
     ['claim_number', 'Claim number'], ['message', 'Details'], ['source_page', 'Sent from'],
@@ -116,7 +116,7 @@
     $('lead-list').replaceChildren(...(list.length ? list.map((l) => h('li', { class: 'lead-item' + (l.status === 'new' ? ' is-new' : '') },
       h('button', { type: 'button', 'aria-current': state.selected === l.id ? 'true' : null, onclick: () => select(l.id) },
         h('span', { class: 'lead-top' }, h('span', { class: 'lead-name' }, l.name), h('span', { class: 'lead-date' }, when(l.created_at))),
-        h('span', { class: 'lead-sub' }, [l.business_name, l.vehicle].filter(Boolean).join(' / ') || l.phone || l.email || ''),
+        h('span', { class: 'lead-sub' }, [l.business_name, l.service, l.vehicle].filter(Boolean).join(' / ') || l.phone || l.email || ''),
         h('span', { class: 'tags' },
           h('span', { class: 'tag ' + l.brand }, BRAND_LABEL[l.brand]),
           h('span', { class: 'tag' + (l.status === 'new' ? ' new' : '') }, STATUS_LABEL[l.status]),

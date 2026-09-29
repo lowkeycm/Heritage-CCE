@@ -197,6 +197,7 @@ scripts/serve.mjs             Local generated-output server
 src/home.html                 Approved homepage source, main content imported by build
 src/content/                  Audited warranty and media provenance
 public/                       CSS, progressive JavaScript, original business images
+public/lead-form.js           Contact form sender (same file as js/lead-form.js in Heritage-Collision-Retail)
 public/staff/                 Staff leads page (sign-in link, leads for both brands, people and alert emails)
 supabase/migrations/          Lead database schema applied to zxzzmrkyctbgxlgjritv
 supabase/functions/           Edge functions: submit-lead (website forms), staff-login (sign-in email)
@@ -234,7 +235,7 @@ What this repo owns in that project:
 | `public.staff_members` | Who can sign in, by email. `can_manage_staff` lets them add or remove people and change alert emails. Started with Clay, Addaie and Tom. |
 | `public.lead_alert_recipients` | Who gets the new-lead email for each brand. Addaie for both until Clay sets up a dedicated address. Editable on the staff page. |
 | Storage bucket `lead-photos` | Private customer photos. Only signed-in staff can view them. |
-| Edge function `submit-lead` | Public form endpoint for both sites (multipart form data, `brand` field required, up to 10 photos). Saves, stores photos, emails the alert with photos attached. |
+| Edge function `submit-lead` | Public form endpoint for both sites (multipart form data, `brand` field required, up to 10 photos). Saves, stores photos, emails the alert with photos attached. Called by `public/lead-form.js` on this site's Contact page and by the identical `js/lead-form.js` on the retail site's Contact page; keep the two copies the same. |
 | Edge function `staff-login` | Emails a one-time sign-in link to people on the staff list only. |
 | `is_staff()`, `can_manage_staff()` | Access checks used by the row level security policies. |
 
