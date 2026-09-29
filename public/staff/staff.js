@@ -8,11 +8,22 @@
   const STORE = 'heritage-collision-staff-session';
   const BRAND_LABEL = { commercial: 'Commercial', retail: 'Retail' };
   const STATUS_LABEL = { new: 'New', contacted: 'Contacted', closed: 'Closed' };
+  const AREA_LABEL = {
+    front: 'Front', 'driver-front': 'Driver side front', 'driver-rear': 'Driver side rear', rear: 'Rear',
+    'passenger-rear': 'Passenger side rear', 'passenger-front': 'Passenger side front', roof: 'Roof', undercarriage: 'Underneath',
+  };
+  const SOURCE_LABEL = { website: 'Website form', 'estimate-app': 'Estimate app' };
+  // [column, label, optional formatter]. Empty values are left out of the detail view.
   const FIELDS = [
-    ['phone', 'Phone'], ['email', 'Email'], ['business_name', 'Business'], ['service', 'Needs help with'],
+    ['reference', 'Reference'], ['phone', 'Phone'], ['email', 'Email'], ['business_name', 'Business'], ['service', 'Needs help with'],
     ['preferred_contact', 'Preferred contact'], ['best_time', 'Best time to reach'],
-    ['vehicle', 'Vehicle'], ['vehicle_type', 'Vehicle type'], ['insurance', 'Insurance'],
-    ['claim_number', 'Claim number'], ['message', 'Details'], ['source_page', 'Sent from'],
+    ['vehicle', 'Vehicle'], ['vehicle_type', 'Vehicle type'], ['vin', 'VIN'], ['license_plate', 'License plate'],
+    ['mileage', 'Mileage', (v) => v == null ? '' : Number(v).toLocaleString('en-US')],
+    ['damage_areas', 'Damage areas', (v) => (v || []).map((a) => AREA_LABEL[a] || a).join(', ')],
+    ['is_rush', 'Rush repair', (v) => v ? 'Yes' : ''],
+    ['needed_by', 'Needed back by', (v) => v ? new Date(v + 'T12:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : ''],
+    ['insurance', 'Insurance'], ['claim_number', 'Claim number'], ['message', 'Details'],
+    ['source', 'Came in through', (v) => SOURCE_LABEL[v] || v], ['source_page', 'Sent from'],
   ];
 
   const $ = (id) => document.getElementById(id);
@@ -120,6 +131,8 @@
         h('span', { class: 'tags' },
           h('span', { class: 'tag ' + l.brand }, BRAND_LABEL[l.brand]),
           h('span', { class: 'tag' + (l.status === 'new' ? ' new' : '') }, STATUS_LABEL[l.status]),
+          l.is_rush ? h('span', { class: 'tag warn' }, 'Rush') : null,
+          l.source === 'estimate-app' ? h('span', { class: 'tag' }, 'Estimate app') : null,
           l.photos?.length ? h('span', { class: 'tag' }, l.photos.length + ' photo' + (l.photos.length === 1 ? '' : 's')) : null,
           l.alert_error ? h('span', { class: 'tag warn' }, 'Email alert failed') : null)))) :
       [h('li', { class: 'hint' }, 'No leads match these filters.')]));
@@ -174,7 +187,8 @@
       h('div', { class: 'actions' },
         tel ? h('a', { class: 'button', href: tel }, 'Call ' + l.phone) : null,
         l.email ? h('a', { class: 'button secondary', href: 'mailto:' + l.email }, 'Email') : null),
-      h('dl', { class: 'fields' }, FIELDS.filter(([k]) => l[k]).map(([k, label]) => [h('dt', {}, label), h('dd', {}, l[k])])),
+      h('dl', { class: 'fields' }, FIELDS.map(([k, label, format]) => [label, format ? format(l[k], l) : l[k]])
+        .filter(([, v]) => v != null && v !== '').map(([label, v]) => [h('dt', {}, label), h('dd', {}, v)])),
       l.photos?.length ? [h('h3', { class: 'section-title' }, 'Photos'), photoGrid] : h('p', { class: 'hint', style: 'margin-top:14px' }, 'No photos were sent.'),
       h('h3', { class: 'section-title' }, 'Follow-up'),
       h('div', { class: 'work' }, h('label', { for: 'lead-status' }, 'Status'), status, h('label', { for: 'lead-notes' }, 'Notes for the team'), notes, save, saveNote),
@@ -184,9 +198,13 @@
       try {
         const signed = await api('/storage/v1/object/sign/lead-photos', { method: 'POST', body: { expiresIn: 3600, paths: l.photos.map((p) => p.path) } });
         if (state.selected !== l.id) return;
-        photoGrid.replaceChildren(...signed.filter((s) => s.signedURL).map((s, i) => {
+        // Signed links come back in the order asked for; match by path when it is returned.
+        photoGrid.replaceChildren(...signed.map((s, i) => [s, l.photos.find((p) => p.path === s.path) || l.photos[i]]).filter(([s]) => s.signedURL).map(([s, photo], i) => {
           const url = SB + '/storage/v1' + s.signedURL;
-          return h('a', { href: url, target: '_blank', rel: 'noopener' }, h('img', { src: url, alt: 'Photo ' + (i + 1) + ' from ' + l.name, loading: 'lazy' }));
+          const label = photo?.label;
+          return h('figure', {},
+            h('a', { href: url, target: '_blank', rel: 'noopener' }, h('img', { src: url, alt: label || 'Photo ' + (i + 1) + ' from ' + l.name, loading: 'lazy' })),
+            label ? h('figcaption', {}, label) : null);
         }));
       } catch (err) {
         photoGrid.replaceChildren(h('p', { class: 'notice error' }, 'Photos could not be loaded: ' + err.message));
