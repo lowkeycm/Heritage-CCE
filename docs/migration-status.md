@@ -12,6 +12,8 @@ Phone, email, address and primary hours are carried from the current contact pag
 
 ## Existing capabilities requiring migration
 
+**Update 2026-09-29:** Clay decided the old project `zxzzmrkyctbgxlgjritv` becomes Heritage Collision, the lead database for this site and Heritage Collision Experts. The new intake (`submit-lead`), private photo storage, alert emails and the staff page at `/staff/` are built and verified; see AGENTS.md 2.15 and docs/verification.md. This site's Contact form (including PeelClear requests, via `/contact?service=peelclear`) and the retail site's form now send to it. Still to do at cutover: retire the old form backend listed below. Chat is not rebuilt. The QR code estimate app at estimate.heritagecce.com (a separate Lovable app) is rebuilt at `/estimate/` and sends to the same database; the domain switch is still to do. See docs/estimate-app.md.
+
 Current estimate form, photo uploads, configurable contact routing, PeelClear inquiry, chat and staff dashboard remain on the existing site. Contact and staff links explicitly open those live pages. No simulated form success is presented. No production inquiry, message or test submission was sent.
 
 The public live bundle identifies legacy Supabase project `zxzzmrkyctbgxlgjritv`, functions `get-form-settings`, `submit-estimate-form`, `request-estimate`, `chatbot-handler`, `send-form-email`, settings table `hccesettings` and photo storage `estimate-photos`. These are observed references, not authorization to alter them. Ownership/isolation, schema, auth, CORS, delivery routes and access controls remain unverified. Do not touch another business's data. Do not expose keys or copy settings values into source.

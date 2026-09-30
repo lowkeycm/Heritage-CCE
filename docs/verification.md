@@ -38,3 +38,37 @@ Branch clay/services-scroll-craft, PR #3. Published Services trust figures confi
 - Reduced-motion fallback is implemented but OS preference toggling remains unavailable in this browser. No physical phone test. Browser logs contain extension metadata errors, no observed site JavaScript errors.
 
 The initial remote checkpoint was necessary to render this shell's changes on the connected cloud browser; final verification precedes the final commit/merge. Temporary QA route removed before merge.
+
+## Lead database and staff page, 2026-09-29
+
+Claude Code on the web. Supabase project `zxzzmrkyctbgxlgjritv`.
+
+- **Access rules, by SQL role simulation:** anonymous callers are refused on `leads`, `staff_members` and `lead_alert_recipients`. A signed-in person not on the staff list sees 0 leads, 0 staff and 0 recipients, and cannot update. A staff member sees leads and can update status and notes; `updated_by` records their email. Editing a customer field (`name`) is refused. A manager can add a person (`added_by` recorded from their login) and cannot remove themselves. All tests ran inside rolled-back transactions.
+- **Storage:** existing storage policies are all scoped to other buckets; only the new staff policy touches `lead-photos`. Public and anon-key requests for a stored lead photo are refused.
+- **Form endpoint (`submit-lead`), with curl:** unknown brand, missing phone and email, and a non-photo file are rejected with plain messages. A filled hidden trap field returns success without saving. A real commercial test lead with two WebP photos saved, both photos stored under `commercial/<lead id>/`, and `alert_sent_at` was set with no error (Resend accepted the email). Delivery to the inbox has to be confirmed by Clay.
+- **Sign-in (`staff-login`), with curl:** an address not on the staff list gets the same success response and no email; a malformed address is rejected. Supabase's verify endpoint accepts the token type the page sends (a fake token returns "invalid or has expired").
+- **Staff page, Playwright at 1440x900 and 390x844:** signed-out screen; lead list with brand, status, photo count and failed-alert tags; lead detail with call and email buttons, fields, photos and follow-up form; People and alerts screen for a manager; brand and status filters; the `?lead=` link from the alert email opening that lead; an expired sign-in link showing a clear message and clearing the address bar. No JavaScript errors. Leads, staff and photos were mocked in the browser for these screenshots. A bug where lead details printed "null" and "[object HTMLElement]" was found in the first pass, fixed and rechecked.
+- **Not verified here:** the real emailed sign-in and live data in the page, because the sandbox browser rejects the network proxy certificate and cannot reach Supabase. First real check: Clay signs in at https://heritage-cce.vercel.app/staff/.
+
+## Contact forms connected, 2026-09-29
+
+Claude Code on the web. This site's `/contact/` and Heritage Collision Experts' `/contact/`, both served locally from the built output.
+
+- **Real end to end, one per site:** the page's own request was captured in Playwright and forwarded to the live `submit-lead` function from Node (the sandbox browser still cannot reach Supabase directly). Commercial: request 162 KB with two photos converted in the browser to JPEG (76 KB and 84 KB stored); retail: 211 KB. Both leads saved with the right brand, `source_page` `/contact/`, two stored photos each, and `alert_sent_at` set with no error. Alerts went to Clay during the test; both leads were then deleted and alerts restored to Addaie.
+- **Form behavior at 1440x900 and 390x844, both sites:** empty submit stops at Name; the commercial form refuses a request with neither phone nor email ("Enter a phone number or an email address."); the retail form requires phone as before; photos can be added, removed and added again with thumbnails; a server error keeps the form filled and shows the message plus the shop phone number; success replaces the form with a confirmation that names the person and counts the photos. No JavaScript errors.
+- **Found and fixed:** on phones the confirmation was left scrolled off the top after the form disappeared, showing the footer. It now scrolls the confirmation into view; rechecked on both sites.
+- `/contact/?service=peelclear` preselects "PeelClear protection". `npm run build` and `npm run check` pass; the check now ignores query strings when validating local links.
+- **Not verified here:** a submission from a real phone browser (camera photos, HEIC). Clay's check.
+
+## Estimate app, 2026-09-29
+
+Claude Code on the web. `/estimate/` served locally from the built output; every call to the `estimate` function and to NHTSA was forwarded to the live services from Node (the sandbox browser cannot reach Supabase directly).
+
+- **Function checks, with curl:** start returns a token; a filled trap field is refused; save drops unknown fields and unknown damage areas; submit names the first unfinished step; a photo slot outside the list and a non-photo file are refused; QR codes are made only for the app's own addresses; an unknown token gets a plain "start again" message.
+- **Full run on two screens at once (computer 1440x900, phone 390x844):** the computer opened the QR code, the phone opened its link and landed on step 1, and the computer then showed which step the phone was on. Empty steps show plain messages. A typed VIN with a letter O became 0, NHTSA filled 2013 Ford F-150, and the check-digit warning showed for that example VIN. Damage areas, eight real photo uploads (seven required and one extra), rush, insurance and claim number all carried to the review.
+- **One real submission:** reference HCC-2026-291395 showed on the phone and, within seconds, on the computer. The lead saved as brand `commercial`, source `estimate-app`, with VIN, vehicle, plate, mileage, damage areas, rush, claim number and eight labeled photos; `alert_sent_at` was set with no error. Alerts pointed at Clay for the test and were restored to Addaie. Reopening the QR link afterwards shows the confirmation again.
+- **Found and fixed during testing:** (1) with the QR code showing, pressing a button on the computer saved its stale copy over what the phone had typed; the computer now reloads the phone's answers first. (2) Opening the QR code on the computer reset the saved step to the start, so the phone restarted at step 1; only real steps are saved now. (3) A sent estimate's token was kept on the device. All three rechecked.
+- **Also checked:** same-device "Welcome back" resume; the scanner's message when no camera is available and "Type the VIN instead"; the no-VIN path; no JavaScript errors in any run.
+- **Staff page:** estimate leads show reference, VIN, plate, mileage, damage areas, rush, needed-by and "Came in through: Estimate app", a Rush tag and an Estimate app tag in the list, and a label under each photo. Website leads look as before. Mocked data, 1440x900 and 390x844.
+- **Cleanup:** the test sessions were expired so the function's own cleanup deleted their photos through the Storage API; the test lead and sessions were then deleted. 0 leads, 0 sessions and 0 estimate photos remained.
+- **Not verified here:** scanning a real VIN barcode with a phone camera, iPhone Safari, HEIC photos, and the estimate.heritagecce.com routing in `vercel.json` (it only applies once that domain is added to Vercel).

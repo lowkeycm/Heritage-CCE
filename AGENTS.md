@@ -53,7 +53,7 @@ Fifteen rules. Every agent, every platform, every operator. Nothing in `people/`
 | Live URL | https://heritagecce.com/ is the current existing site, reachable 2026-09-23. This new repo is not confirmed connected to it. |
 | Repo | github.com/lowkeycm/Heritage-CCE |
 | Hosting | Current business domain remains Hostinger/Horizons. New design-review target is Vercel heritage-cce, documented in 2.7. |
-| Database | No new database configured. Legacy public source references zxzzmrkyctbgxlgjritv; ownership and isolation UNVERIFIED. See migration-status.md. No database writes authorized. |
+| Database | Supabase project `zxzzmrkyctbgxlgjritv`, being renamed "Heritage Collision" (Clay, 2026-09-29; the dashboard still says "Heritage Coach" until he renames it). It is the lead database for both collision brands: this site (brand `commercial`) and Heritage Collision Experts (brand `retail`). This repo owns it; migrations and edge functions live in `supabase/`. See 2.15. |
 | Other systems | Review links to existing inquiry and staff workflows. Their migration and delivery verification remain open. |
 | Owner | Clay. See `people/clay.md`. |
 
@@ -102,7 +102,12 @@ Verified 2026-09-23: dependency-free Node >=22 static generator, semantic HTML/C
 
 **Locations only. Never record a value here, in a commit, in a PR body, or in chat.**
 
-This static review build reads no secrets and requires no environment variables. Backend secret locations remain UNVERIFIED. Hosting uses the existing authenticated Vercel connector; do not extract credentials from browser state.
+The static site reads no secrets and needs no environment variables. The staff page embeds the Supabase anon key, which is public by design; row level security decides access. Hosting uses the existing authenticated Vercel connector; do not extract credentials from browser state.
+
+| Purpose | Location | Status |
+| --- | --- | --- |
+| Lead alert and staff sign-in email (Resend) | Supabase edge function secret `RESEND_API_KEY` in `zxzzmrkyctbgxlgjritv` | Present and working 2026-09-29 (sends from noreply@heritagecce.com) |
+| Service role for edge functions | Supabase built-in `SUPABASE_SERVICE_ROLE_KEY` inside edge functions only | Never used outside functions |
 
 - Never commit real `.env` files. The scaffold includes ignore rules for `.env` and `.env.*`.
 - Browser-exposed prefixes such as `VITE_` and `NEXT_PUBLIC_` are public, never secret.
@@ -156,9 +161,10 @@ Owner authorized active redesign implementation on 2026-09-23. Current milestone
 **In scope, just do it:**
 - Maintain the cross-platform instructions, operator profile, bootstrap checks, and honest handoff.
 - Implement and verify the approved full-site aesthetic direction and review preview. Preserve current content and navigation routes.
+- Maintain the collision lead intake described in 2.15: its tables, storage bucket, edge functions, the staff page and the estimate app at `/estimate/` (Clay, 2026-09-29). Database changes inside those objects and SQL checks are pre-approved.
 
 **Out of scope, ask first:**
-- Production cutover, domain/DNS changes or replacing the current inquiry/admin backend require a verified migration plan.
+- Production cutover and domain/DNS changes. At cutover the old heritagecce.com form backend is retired (see 2.15); that happens only when Clay switches the site over.
 - Changes to business scope, navigation behavior, forms, or integrations beyond the agreed aesthetic redesign.
 - Schema changes, adding a dependency, secrets changes, editing identity strings, and anything touching another business's data.
 - Changing hosting, production domains, DNS, or infrastructure targets without verification and authorization.
@@ -191,6 +197,13 @@ scripts/serve.mjs             Local generated-output server
 src/home.html                 Approved homepage source, main content imported by build
 src/content/                  Audited warranty and media provenance
 public/                       CSS, progressive JavaScript, original business images
+public/lead-form.js           Contact form sender (same file as js/lead-form.js in Heritage-Collision-Retail)
+public/staff/                 Staff leads page (sign-in link, leads for both brands, people and alert emails)
+public/estimate/              Phone estimate app (replaces the Lovable app at estimate.heritagecce.com)
+public/vendor/zxing/          Pinned ZXing 0.23.0 barcode reader (Apache-2.0) for VIN scanning on iPhone
+supabase/migrations/          Lead database schema applied to zxzzmrkyctbgxlgjritv
+supabase/functions/           Edge functions: submit-lead (website forms), staff-login (sign-in email), estimate (estimate app)
+docs/estimate-app.md          Estimate app: what it does, old app status, switch steps
 vercel.json                   Review hosting, build gate and noindex guards
 docs/migration-status.md      Current-site audit and production migration boundary
 docs/verification.md          Actual browser QA evidence and limitations
@@ -210,3 +223,26 @@ HANDOFF.md / people/clay.md    Session state and owner preferences
 - 2026-09-23: Existing design-preview truck assets have reversed filenames: `before.webp` shows the finished black truck; `after.webp` shows the white truck before refinishing. Verify the actual photos when importing.
 
 - 2026-09-23 update: application source and review deployment now exist. Earlier bootstrap-only observations above describe the initial state. Full Marketing-Hub checkout and skill-pointer installation remain incomplete after automatic approval review blocked the snapshot restore.
+- 2026-09-29: The sandbox's Playwright Chromium rejects the network proxy certificate, so it cannot reach Supabase. Test the edge functions with curl and the staff page with mocked responses; the real sign-in has to be clicked by a person. Do not disable certificate checks to get around it.
+- 2026-09-29: Staff sign-in does not use Supabase's own email templates or redirect settings. `staff-login` generates a one-time token and emails a link through Resend; the page exchanges it at `/auth/v1/verify`. Changing the staff page address means updating `ALLOWED_PAGES` in that function, `STAFF_PAGE` in `submit-lead` and `estimate`, and the `/admin` and `/staff` redirects for estimate.heritagecce.com in `vercel.json`.
+- 2026-09-29: The estimate app only makes QR codes for addresses in `QR_ORIGINS` in the `estimate` function. A new host for the app must be added there first. On estimate.heritagecce.com, `vercel.json` shows the app at `/` and sends the old Lovable paths to it.
+
+### 2.15 Lead database (Heritage Collision)
+
+Decided by Clay, 2026-09-29: the old "Heritage Coach" Supabase project `zxzzmrkyctbgxlgjritv` is renamed Heritage Collision and holds the leads for both collision businesses. Heritage Coach customers stay in Pipedrive (heritage-ops) and Heritage Coach inventory stays in `tvwmxlrlpomlkcmuaptu`; neither lives here. Linking a collision lead to a Coach customer by Pipedrive organization ID and to a CCC repair order is a later step, not built.
+
+What this repo owns in that project:
+
+| Object | Purpose |
+| --- | --- |
+| `public.leads` | One row per lead. `brand` is `commercial` (this site, and company vehicles from the estimate app) or `retail` (Heritage Collision Experts, and personal vehicles from the estimate app). `source` is `website` or `estimate-app`; estimate app leads also fill `reference` (HCC-YYYY-NNNNNN), VIN, vehicle, plate, mileage, `damage_areas`, rush and needed-by. Staff may change only `status` and `staff_notes`. |
+| `public.estimate_sessions` | Estimate app drafts, so a customer can start on a computer and finish on a phone. Reached only through the `estimate` function (token stored hashed); no direct access for anyone. Unsent drafts expire after 7 days and are removed with their photos. |
+| `public.staff_members` | Who can sign in, by email. `can_manage_staff` lets them add or remove people and change alert emails. Started with Clay, Addaie and Tom. |
+| `public.lead_alert_recipients` | Who gets the new-lead email for each brand. Addaie for both until Clay sets up a dedicated address. Editable on the staff page. |
+| Storage bucket `lead-photos` | Private customer photos. Only signed-in staff can view them. |
+| Edge function `submit-lead` | Public form endpoint for both sites (multipart form data, `brand` field required, up to 10 photos). Saves, stores photos, emails the alert with photos attached. Called by `public/lead-form.js` on this site's Contact page and by the identical `js/lead-form.js` on the retail site's Contact page; keep the two copies the same. |
+| Edge function `staff-login` | Emails a one-time sign-in link to people on the staff list only. |
+| Edge function `estimate` | Backend for `/estimate/`: start, save, load, photo upload to `lead-photos/estimate/`, QR code, status and submit. Submit creates the lead and emails the alert with photos. |
+| `is_staff()`, `can_manage_staff()` | Access checks used by the row level security policies. |
+
+Everything else in the project is legacy. The old heritagecce.com form (`estimate_requests`, `hccesettings`, bucket `estimate-photos`, functions `get-form-settings`, `submit-estimate-form`, `request-estimate`, `send-form-email`, `chatbot-handler`, and the n8n hookup) keeps serving the live site until cutover; retire it then. The old content tool tables, buckets, functions and logins are no longer needed (Clay, 2026-09-29) and can be removed once nothing points at them. The 23 old estimate requests do not need to be kept.

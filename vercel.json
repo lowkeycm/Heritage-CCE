@@ -6,8 +6,97 @@
   "redirects": [
     {
       "source": "/admin",
-      "destination": "https://heritagecce.com/admin",
+      "has": [
+        {
+          "type": "host",
+          "value": "estimate.heritagecce.com"
+        }
+      ],
+      "destination": "https://heritage-cce.vercel.app/staff/",
       "permanent": false
+    },
+    {
+      "source": "/admin/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "estimate.heritagecce.com"
+        }
+      ],
+      "destination": "https://heritage-cce.vercel.app/staff/",
+      "permanent": false
+    },
+    {
+      "source": "/staff",
+      "has": [
+        {
+          "type": "host",
+          "value": "estimate.heritagecce.com"
+        }
+      ],
+      "destination": "https://heritage-cce.vercel.app/staff/",
+      "permanent": false
+    },
+    {
+      "source": "/staff/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "estimate.heritagecce.com"
+        }
+      ],
+      "destination": "https://heritage-cce.vercel.app/staff/",
+      "permanent": false
+    },
+    {
+      "source": "/estimate/continue/:token",
+      "has": [
+        {
+          "type": "host",
+          "value": "estimate.heritagecce.com"
+        }
+      ],
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/confirmation/:reference",
+      "has": [
+        {
+          "type": "host",
+          "value": "estimate.heritagecce.com"
+        }
+      ],
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/check-status",
+      "has": [
+        {
+          "type": "host",
+          "value": "estimate.heritagecce.com"
+        }
+      ],
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/admin",
+      "destination": "/staff/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "estimate.heritagecce.com"
+        }
+      ],
+      "destination": "/estimate/"
     }
   ],
   "headers": [

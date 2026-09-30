@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Repair estimate | Heritage Collision</title>
+<meta name="description" content="Start a collision repair estimate with Heritage. Share your details, your vehicle and photos of the damage from your phone.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1a2a4a">
+<link rel="icon" href="/assets/logo.png">
+<link rel="stylesheet" href="/estimate/estimate.css">
+<script src="/estimate/estimate.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="top-row">
+    <a class="brand" href="https://heritagecce.com/"><span>HERITAGE</span><small>REPAIR ESTIMATE</small></a>
+    <a class="top-phone" href="tel:6107078600">(610) 707-8600</a>
+  </div>
+  <div class="progress" id="progress" hidden>
+    <p class="progress-label" id="progress-label"></p>
+    <div class="progress-bar"><span id="progress-fill"></span></div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <p class="loading" id="loading">Loading…</p>
+  <noscript><p class="loading">This estimate app needs JavaScript. Call (610) 707-8600 and we will help you by phone.</p></noscript>
+  <div id="screen"></div>
+</main>
+
+<div class="scanner" id="scanner" role="dialog" aria-modal="true" aria-labelledby="scanner-title" hidden>
+  <div class="scanner-top">
+    <h2 id="scanner-title">Scan the VIN barcode</h2>
+    <button type="button" class="scanner-close" id="scanner-close">Close</button>
+  </div>
+  <div class="scanner-view">
+    <video id="scanner-video" muted playsinline></video>
+    <span class="scanner-box" aria-hidden="true"></span>
+  </div>
+  <p class="scanner-status" id="scanner-status" role="status">Starting the camera…</p>
+  <div class="scanner-actions">
+    <button type="button" class="button ghost light" id="scanner-torch" hidden>Turn on light</button>
+    <button type="button" class="button light" id="scanner-type">Type the VIN instead</button>
+  </div>
+</div>
+</body>
+</html>

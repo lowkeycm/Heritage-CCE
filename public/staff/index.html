@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Staff leads | Heritage Collision</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1a2a4a">
+<link rel="icon" href="/assets/logo.png">
+<link rel="stylesheet" href="/staff/staff.css">
+<script src="/staff/staff.js" defer></script>
+</head>
+<body>
+<header class="bar">
+  <a class="bar-brand" href="/staff/"><span>HERITAGE<small>COLLISION LEADS</small></span></a>
+  <div class="bar-user" id="bar-user" hidden>
+    <span id="user-name"></span>
+    <button type="button" class="text-button" id="sign-out">Sign out</button>
+  </div>
+</header>
+
+<main id="main">
+  <p class="status-line" id="loading">Loading…</p>
+
+  <section class="login" id="view-login" hidden aria-labelledby="login-title">
+    <p class="eyebrow">STAFF ONLY</p>
+    <h1 id="login-title">Sign in to see leads</h1>
+    <p>Enter your work email. If you are on the staff list, we will email you a sign-in link.</p>
+    <form id="login-form" novalidate>
+      <label for="login-email">Email</label>
+      <input id="login-email" type="email" autocomplete="email" required>
+      <button class="button" type="submit">Email me a sign-in link</button>
+    </form>
+    <p class="notice" id="login-message" role="status"></p>
+  </section>
+
+  <section class="app" id="view-app" hidden>
+    <nav class="tabs" aria-label="Staff sections">
+      <button type="button" class="tab" id="tab-leads" aria-pressed="true">Leads</button>
+      <button type="button" class="tab" id="tab-people" aria-pressed="false">People and alerts</button>
+    </nav>
+
+    <div id="panel-leads">
+      <div class="filters">
+        <div class="segmented" role="group" aria-label="Business">
+          <button type="button" data-brand="all" aria-pressed="true">All</button>
+          <button type="button" data-brand="commercial" aria-pressed="false">Commercial</button>
+          <button type="button" data-brand="retail" aria-pressed="false">Retail</button>
+        </div>
+        <label class="inline-label">Show
+          <select id="filter-status">
+            <option value="open">Open (new and contacted)</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="closed">Closed</option>
+            <option value="all">All</option>
+          </select>
+        </label>
+        <button type="button" class="text-button" id="refresh">Refresh</button>
+      </div>
+      <div class="split">
+        <div class="list-wrap">
+          <h1 class="sr-only">Leads</h1>
+          <p class="count" id="lead-count" aria-live="polite"></p>
+          <ul class="lead-list" id="lead-list"></ul>
+        </div>
+        <article class="detail" id="lead-detail" aria-live="polite">
+          <p class="empty">Choose a lead to see the details and photos.</p>
+        </article>
+      </div>
+    </div>
+
+    <div id="panel-people" hidden>
+      <section class="card">
+        <h2>Who can sign in</h2>
+        <p class="hint">Everyone on this list can see all leads for both businesses.</p>
+        <ul class="people" id="people-list"></ul>
+        <form class="add-person" id="add-person" hidden>
+          <h3>Add a person</h3>
+          <label for="person-name">Name</label>
+          <input id="person-name" autocomplete="off" required maxlength="120">
+          <label for="person-email">Email</label>
+          <input id="person-email" type="email" autocomplete="off" required>
+          <label class="check"><input id="person-manage" type="checkbox"> Can add and remove people and change alert emails</label>
+          <button class="button" type="submit">Add person</button>
+          <p class="notice" id="person-message" role="status"></p>
+        </form>
+      </section>
+      <section class="card">
+        <h2>Who gets new lead emails</h2>
+        <p class="hint">Separate several addresses with commas.</p>
+        <form id="alerts-form">
+          <label for="alerts-commercial">Commercial (heritagecce.com)</label>
+          <input id="alerts-commercial" autocomplete="off">
+          <label for="alerts-retail">Retail (Heritage Collision Experts)</label>
+          <input id="alerts-retail" autocomplete="off">
+          <button class="button" type="submit" id="alerts-save">Save alert emails</button>
+          <p class="notice" id="alerts-message" role="status"></p>
+        </form>
+      </section>
+    </div>
+  </section>
+</main>
+</body>
+</html>
