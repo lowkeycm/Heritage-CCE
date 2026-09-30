@@ -4,6 +4,12 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 
 ## Last Session
 
+**2026-09-30, Clay / Codex Work Mode:** Owner approved merging the reviewed PAS homepage rewrite and Heritage family links. PR #6 merged into #5. Reconciled current main (fd0b467) into the copy branch, preserving the newer Contact lead form, lead-form.js loader, /staff/ footer destination, estimate app, Supabase source and configuration. Conflicts in build.mjs and site.css combine those features with the approved copy and cards. Family cards appear on About only; footer links remain sitewide. Removed public/copy-review.html. Local build/check and targeted preservation checks pass. PR #5 merge and production verification follow this checkpoint; use GitHub/Vercel records for final SHA. No database operations, test submissions or domain changes made.
+
+**Next:** Continue the existing phone/estimate-app checks and launch decisions listed in the preceding session. Approved visual changes no longer await copy review once PR #5 is merged. Main Vercel target: https://heritage-cce.vercel.app/ . Original heritagecce.com and estimate.heritagecce.com cutover are separate decisions.
+
+### Previous session (preserved from main)
+
 - **When:** 2026-09-29.
 - **Who:** Clay, sole operator profile.
 - **Platform:** Claude Code on the web (cloud session with Heritage-CCE, Heritage-Coach, Heritage-Collision-Retail and heritage-ops checked out).
