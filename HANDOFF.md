@@ -4,6 +4,20 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 
 ## Last Session
 
+**Placement correction, 2026-09-29, Clay / Codex Work Mode:** Owner directed the Heritage family cards to About. Removed the card section from Home and Services and placed it before the About closing contact section. Kept sitewide footer links. No card content or styling changes. Same active review branch/PR #6, still unmerged. Review URL: https://heritage-cce-git-clay-heritage-family-links-pridefamilyrealty.vercel.app/about#heritage-family . Build/check and explicit route placement checks pass; preview rendering follows deployment. This supersedes the Home/Services placement described below.
+
+### Previous follow-up
+
+**Follow-up 2026-09-29, Clay / Codex Work Mode:** Owner liked the PAS preview and requested links to the other Heritage businesses using the revamped Retail/Coach designs as references. Added three integrated-logo cards to Home and Services and a family navigation row in every footer. Cards connect commercial customers to Total Detailing (cleaning/detailing/paint protection), Heritage Collision Experts (personal/everyday fleet repairs), and Heritage Coach (new/pre-owned hearses). Inspected Retail About directory and Coach Services cards in the browser and read their source. Reused their exact published logos as optimized WebP assets. Small final polish aligns card headings and enlarges the Coach background mark.
+
+**Review status:** Draft PR #6 targets clay/homepage-pas-copy, stacking on PR #5. Both remain unmerged. New preview branch clay/heritage-family-links includes the approved-looking PAS draft plus the family links. Stable preview: https://heritage-cce-git-clay-heritage-family-links-pridefamilyrealty.vercel.app/#heritage-family . Wait for owner feedback before merging. When approved, merge #6 into #5, remove public/copy-review.html, rerun checks, then merge #5 to main.
+
+**Verification:** Build/check passes 7 routes and 281 local destinations; whitespace clean. Initial family app deployment 4b0b7f0 READY. Desktop/mobile fixed-frame inspection confirms readable cards and no document horizontal overflow (1425/375 content widths inside 1440×900/390×844 frames). Destination URLs each returned unauthenticated HTTP 200. Retail link deliberately uses its stable revamped Vercel host because its final custom domain is unconfirmed. Coach and Detailing use existing business domains. No forms submitted. Final polish deployment and screenshot verified after this handoff commit; see PR/Vercel record.
+
+**Capability update:** Same operator/platform/day; instructions and handoff read. Identity set locally, new clay branch based on existing PAS review, other branches checked. No dependencies or DB work. GitHub connector handles writes because shell push authentication is unavailable. Local browser unavailable; cloud browser used after preview checkpoint as in prior session. Vercel target remains only Heritage CCE prj_QVxX0xImRE7c83nQF2OAuEmCg7mi. No changes to other repositories or hosting settings.
+
+### Earlier today
+
 **2026-09-29, Clay / Codex Work Mode:** Owner requested a PAS homepage rewrite and preview before merge after the read-only original/redesign comparison. Implemented downtime-focused hero, concrete business consequences, specialty-repair solution, supporting work/process copy and estimate CTA. Marketing Hub copy and claims guidance applied; rationale in campaigns/website-redesign/homepage-pas-review.md. Draft PR #5 is OPEN and MUST NOT be merged until Clay approves. Preview: https://heritage-qgfddsl8k-pridefamilyrealty.vercel.app/ at app commit 5c61a1da5383d24ab70e41ac2fe4a85203f5e8df, Vercel READY and unauthenticated HTTP 200. Main remains f1fa547.
 
 Build/content checks pass (7 routes, 275 links/assets), whitespace clean. Cloud browser inspected desktop and mobile fixed frames (1440×900 and 390×844; scrollbar reduces content widths to 1425 and 375). Hero, PAS bridge and FAQ inspected; no horizontal document overflow in either frame. Slider keyboard input updates aria-valuetext to 51% before / 49% after. Full mobile section-by-section and physical-touch testing remain unverified. Initial review checkpoint committed before visual inspection because local browser download failed; cloud visual inspection followed the branch deployment. Local/remote content trees match (129f1a0). Screenshot saved for owner review.
@@ -27,7 +41,7 @@ Build/content checks pass (7 routes, 275 links/assets), whitespace clean. Cloud 
 
 ## Where We Are
 
-**Current review:** PAS homepage copy exists only on clay/homepage-pas-copy / draft PR https://github.com/lowkeycm/Heritage-CCE/pull/5. Await owner approval; do not follow the default automatic merge rule for this branch. Existing main remains the earlier design. The fixed-size review helper is temporary and must be removed before merging.
+**Current review:** Family-link follow-up is draft PR #6, stacked on PR #5; see Last Session for review and merge order. PAS homepage copy exists only on clay/homepage-pas-copy / draft PR https://github.com/lowkeycm/Heritage-CCE/pull/5. Await owner approval; do not follow the default automatic merge rule for this branch. Existing main remains the earlier design. The fixed-size review helper is temporary and must be removed before merging.
 
 The first full-site visual pass and requested Services/About refinements are implemented. This is a review milestone, not a finished production migration. The existing business website at https://heritagecce.com remains unchanged.
 
