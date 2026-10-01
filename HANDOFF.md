@@ -4,6 +4,12 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 
 ## Last Session
 
+**2026-10-01, Clay / Codex Work Mode:** Clay requested the same domain preparation as the retail launch so he can update DNS. Confirmed Vercel project `heritage-cce` (`prj_QVxX0xImRE7c83nQF2OAuEmCg7mi`) and added `www.heritagecce.com` to Production with `heritagecce.com` redirecting to it (308). Vercel currently reports Invalid Configuration while awaiting owner DNS changes. Required records: A `@` = `216.150.1.1`; CNAME `www` = `20a838f9df343bf8.vercel-dns-016.com`. Do not change email DNS, nameservers or the separate `estimate` subdomain. No website source, database, backend or DNS records changed in this session. Anonymous review homepage returned HTTP 200 with the current commercial site title.
+
+**Next:** After Clay saves DNS, verify apex/www redirects, HTTPS and public routes. This domain preparation is not a completed production migration. Existing meta robots, robots.txt and X-Robots-Tag still block indexing; remove launch guards and add canonical metadata as part of launch completion after resolving the migration checklist. Existing staff-login source already allows both heritagecce.com and www; alert email STAFF_PAGE still uses the working Vercel staff address. Phone checks and the separate estimate app cutover remain tracked below. Do not delete legacy backend data during domain verification.
+
+### Previous session
+
 **2026-09-30, Clay / Codex Work Mode:** Owner approved merging the reviewed PAS homepage rewrite and Heritage family links. PR #6 merged into #5. Reconciled current main (fd0b467) into the copy branch, preserving the newer Contact lead form, lead-form.js loader, /staff/ footer destination, estimate app, Supabase source and configuration. Conflicts in build.mjs and site.css combine those features with the approved copy and cards. Family cards appear on About only; footer links remain sitewide. Removed public/copy-review.html. Local build/check and targeted preservation checks pass. PR #5 merge and production verification follow this checkpoint; use GitHub/Vercel records for final SHA. No database operations, test submissions or domain changes made.
 
 **Next:** Continue the existing phone/estimate-app checks and launch decisions listed in the preceding session. Approved visual changes no longer await copy review once PR #5 is merged. Main Vercel target: https://heritage-cce.vercel.app/ . Original heritagecce.com and estimate.heritagecce.com cutover are separate decisions.
