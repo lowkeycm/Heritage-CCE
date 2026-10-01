@@ -1,5 +1,7 @@
 # Redesign review and launch boundary
 
+**Launch update, 2026-10-01:** Clay switched the main business domain to Vercel and explicitly authorized public search indexing. HTTPS/apex-to-www routing was verified. Public indexing guards are now replaced with canonical URLs and a sitemap; staff/estimate/error pages and Vercel previews stay excluded. Historical prelaunch restrictions below no longer block this approved domain/indexing change. Backend retirement and the separate estimate subdomain migration were not performed.
+
 2026-09-23. This is a design review build, not a production cutover.
 
 ## Source audit
