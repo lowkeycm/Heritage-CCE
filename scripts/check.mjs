@@ -14,3 +14,13 @@ if(JSON.stringify(locations)!==JSON.stringify(routes.map(r=>'https://www.heritag
 const robots=await readFile('dist/robots.txt','utf8');
 if(process.env.VERCEL_ENV!=='preview'&&(/^Disallow: \/$/m.test(robots)||!robots.includes('Sitemap: https://www.heritagecce.com/sitemap.xml')))throw Error('Public robots configuration blocks discovery');
 const notFound=await readFile('dist/404.html','utf8');if(!notFound.includes('noindex,nofollow'))throw Error('404 must stay excluded');
+
+// Vercel checks existing static files before rewrites. The main index.html must
+// not win on the estimate host, so its root needs a host-scoped redirect.
+const hosting=JSON.parse(await readFile('vercel.json','utf8'));
+const estimateHost=[{type:'host',value:'estimate.heritagecce.com'}];
+const rootRedirects=hosting.redirects.filter(r=>r.source==='/');
+if(rootRedirects.length!==1||rootRedirects[0].destination!=='/estimate/'||rootRedirects[0].permanent!==false||JSON.stringify(rootRedirects[0].has)!==JSON.stringify(estimateHost))throw Error('Estimate root must temporarily redirect only on its own host');
+if((hosting.rewrites||[]).some(r=>r.source==='/'))throw Error('Static root rewrites cannot route the estimate host');
+for(const source of ['/estimate/continue/:token','/confirmation/:reference','/check-status'])if(!hosting.redirects.some(r=>r.source===source&&r.destination==='/'&&JSON.stringify(r.has)===JSON.stringify(estimateHost)))throw Error('Legacy estimate redirect missing: '+source);
+console.log('Checked host-scoped estimate root redirect and legacy customer paths.');
