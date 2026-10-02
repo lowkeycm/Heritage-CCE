@@ -5,6 +5,17 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "estimate.heritagecce.com"
+        }
+      ],
+      "destination": "/estimate/",
+      "permanent": false
+    },
+    {
       "source": "/admin",
       "has": [
         {
@@ -85,18 +96,6 @@
       "source": "/admin",
       "destination": "/staff/",
       "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "estimate.heritagecce.com"
-        }
-      ],
-      "destination": "/estimate/"
     }
   ],
   "headers": [
