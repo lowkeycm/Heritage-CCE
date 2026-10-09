@@ -114,3 +114,15 @@ textarea{min-height:96px;resize:vertical}
   .fields dt{padding-bottom:0;border-bottom:0}
   .bar-user span{display:none}
 }
+.danger-button{background:var(--bad)}
+.danger-button:hover{background:#8f1e18}
+.button.danger-button[disabled]{opacity:.45;cursor:not-allowed}
+.delete-zone{margin-top:28px;padding-top:6px;border-top:1px solid var(--border)}
+.delete-zone .button{margin-top:10px}
+dialog.confirm{width:min(440px,calc(100% - 32px));border:0;border-radius:6px;padding:24px;color:var(--ink);box-shadow:0 12px 40px rgba(10,20,40,.3)}
+dialog.confirm::backdrop{background:rgba(10,20,40,.55)}
+dialog.confirm h2{font-size:20px;color:var(--navy);margin:0 0 8px}
+dialog.confirm label{display:block;font-weight:700;margin:16px 0 6px}
+.confirm-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+#list-message:empty{display:none}
+dialog.confirm .notice:empty{display:none}

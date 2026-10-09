@@ -146,6 +146,7 @@
 
   function select(id) {
     state.selected = id;
+    note('list-message', '');
     const url = new URL(location.href); url.searchParams.set('lead', id); history.replaceState(null, '', url);
     $('view-app').classList.add('showing-detail');
     renderList(); renderDetail();
@@ -158,6 +159,52 @@
     $('view-app').classList.remove('showing-detail');
     renderList();
     $('lead-detail').replaceChildren(h('p', { class: 'empty' }, 'Choose a lead to see the details and photos.'));
+  }
+
+  // Managers only (the database enforces it too). Typing "delete" guards against a slip.
+  function confirmDelete(l) {
+    const count = l.photos?.length || 0;
+    const input = h('input', { id: 'delete-confirm', autocomplete: 'off', autocapitalize: 'none', spellcheck: 'false' });
+    const msg = h('p', { class: 'notice', role: 'status' });
+    const cancel = h('button', { type: 'button', class: 'button secondary' }, 'Cancel');
+    const go = h('button', { type: 'button', class: 'button danger-button', disabled: true }, 'Delete lead');
+    const dialog = h('dialog', { class: 'confirm', 'aria-labelledby': 'delete-title' },
+      h('h2', { id: 'delete-title' }, 'Delete this lead?'),
+      h('p', {}, 'This permanently removes the lead from ' + l.name + (count ? ' and its ' + count + ' photo' + (count === 1 ? '' : 's') : '') + '. It cannot be undone.'),
+      h('label', { for: 'delete-confirm' }, 'Type delete to confirm'),
+      input,
+      h('div', { class: 'confirm-actions' }, cancel, go),
+      msg);
+    const ready = () => input.value.trim().toLowerCase() === 'delete';
+    input.addEventListener('input', () => { go.disabled = !ready(); });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && ready() && !go.disabled) go.click(); });
+    cancel.addEventListener('click', () => { dialog.close(); dialog.remove(); });
+    dialog.addEventListener('close', () => dialog.remove());
+    go.addEventListener('click', async () => {
+      if (!ready()) return;
+      go.disabled = cancel.disabled = input.disabled = true;
+      msg.textContent = 'Deleting...'; msg.className = 'notice';
+      try {
+        const rows = await api('/rest/v1/leads?id=eq.' + l.id, { method: 'DELETE', headers: { Prefer: 'return=representation' } });
+        if (!rows?.length) throw new Error('This lead could not be deleted. Only managers can delete leads.');
+        const paths = (rows[0].photos || []).map((p) => p.path).filter(Boolean);
+        let leftover = 0;
+        if (paths.length) {
+          try { leftover = paths.length - ((await api('/storage/v1/object/lead-photos', { method: 'DELETE', body: { prefixes: paths } }))?.length || 0); }
+          catch { leftover = paths.length; }
+        }
+        state.leads = state.leads.filter((x) => x.id !== l.id);
+        dialog.close();
+        closeDetail();
+        note('list-message', leftover ? 'Lead deleted. ' + leftover + ' of its photos could not be removed.' : 'Lead from ' + l.name + ' deleted.', leftover ? 'error' : 'ok');
+      } catch (err) {
+        msg.textContent = err.message; msg.className = 'notice error';
+        cancel.disabled = input.disabled = false; go.disabled = !ready();
+      }
+    });
+    document.body.append(dialog);
+    dialog.showModal();
+    input.focus();
   }
 
   async function renderDetail() {
@@ -192,6 +239,10 @@
       l.photos?.length ? [h('h3', { class: 'section-title' }, 'Photos'), photoGrid] : h('p', { class: 'hint', style: 'margin-top:14px' }, 'No photos were sent.'),
       h('h3', { class: 'section-title' }, 'Follow-up'),
       h('div', { class: 'work' }, h('label', { for: 'lead-status' }, 'Status'), status, h('label', { for: 'lead-notes' }, 'Notes for the team'), notes, save, saveNote),
+      state.me?.can_manage_staff ? h('div', { class: 'delete-zone' },
+        h('h3', { class: 'section-title' }, 'Delete lead'),
+        h('p', { class: 'hint' }, 'For tests, spam and sales pitches. Removes the lead and its photos for good.'),
+        h('button', { type: 'button', class: 'button danger-button', onclick: () => confirmDelete(l) }, 'Delete this lead')) : null,
     ].flat().filter(Boolean));
 
     if (l.photos?.length) {

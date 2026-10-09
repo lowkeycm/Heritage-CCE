@@ -84,3 +84,11 @@ Claude Code on the web. Source: `estimate_requests` in `zxzzmrkyctbgxlgjritv` (o
 - **Staff page:** with mocked rows shaped like the imported ones, the default Open view hides them, Show: All lists them, and the detail shows the reference, rush tag, photo labels and the import note in the notes box. No JavaScript errors. 1440x900 and 390x844.
 - **Not verified here:** the real staff page with live data, because the sandbox browser cannot sign in. First check: open the staff page, choose Show: All, open an imported lead.
 - Nothing in either old project was changed or deleted.
+
+## Manager delete on the staff page, 2026-10-09
+
+Claude Code on the web. Migration 20261009000001 applied to `zxzzmrkyctbgxlgjritv`.
+
+- **Database:** `authenticated` now has DELETE on `public.leads`; policies "Managers delete leads" (`can_manage_staff()`) and "Managers delete lead photos" (`lead-photos` bucket and `can_manage_staff()`) exist; `estimate_sessions.lead_id` is on delete cascade. With Addaie's sign-in simulated, `can_manage_staff()` is true and all 34 leads are visible; for a signed-in person not on the staff list it is false and 0 leads are visible. `anon` has no delete grant. A real DELETE could not be run from here (the connector's confirmation step cancelled destructive statements).
+- **Staff page, Playwright with mocked data at 1440x900 and 390x844:** managers see a "Delete lead" section; the confirm box names the lead and photo count; "Delete lead" stays disabled for an empty box and for "delet", and enables for "Delete" or "delete"; Cancel closes it and sends nothing; confirming sends `DELETE /rest/v1/leads?id=eq.<id>` (return=representation) and then `DELETE /storage/v1/object/lead-photos` with that lead's photo paths, closes the lead and shows "Lead from <name> deleted."; if the database deletes nothing, the box says only managers can delete and the lead stays; non-managers do not see the section. No JavaScript errors.
+- **Not verified here:** a real delete on the live page. First check: a manager deletes the "Joe Bloe" test lead.
