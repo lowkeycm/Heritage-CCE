@@ -72,3 +72,15 @@ Claude Code on the web. `/estimate/` served locally from the built output; every
 - **Staff page:** estimate leads show reference, VIN, plate, mileage, damage areas, rush, needed-by and "Came in through: Estimate app", a Rush tag and an Estimate app tag in the list, and a label under each photo. Website leads look as before. Mocked data, 1440x900 and 390x844.
 - **Cleanup:** the test sessions were expired so the function's own cleanup deleted their photos through the Storage API; the test lead and sessions were then deleted. 0 leads, 0 sessions and 0 estimate photos remained.
 - **Not verified here:** scanning a real VIN barcode with a phone camera, iPhone Safari, HEIC photos, and the estimate.heritagecce.com routing in `vercel.json` (it only applies once that domain is added to Vercel).
+
+## Old leads imported, 2026-10-09
+
+Claude Code on the web. Source: `estimate_requests` in `zxzzmrkyctbgxlgjritv` (old heritagecce.com form) and `damage_requests` in Lovable project `xkjqxifquyklnkuhxltk` (old estimate app). Target: `public.leads` and the `lead-photos` bucket in `zxzzmrkyctbgxlgjritv`.
+
+- **Counts before:** 23 old form records and 16 old app records, none deleted earlier and none added since 2026-09-29.
+- **Leads:** 17 old form leads and 15 old app leads inserted as status `closed` with their original `created_at`. Skipped by Clay's choice: 4 test records (3 old form, 1 old app) and 3 bot records. A dry run first caught a text clean-up mistake (literal "\n" and trimmed letters) before any write; the corrected run changed only whitespace in all 17 old form messages. The old app rows were copied with an MD5 fingerprint check that had to match before the insert ran.
+- **Photos:** 126 copied (3 old form, 123 old app), 0 failures. All 126 exist in `lead-photos/imported/` with sizes matching their stored entries; the 123 old app photos also match the originals' sizes one by one (same per-photo fingerprint, 76,330,577 bytes in total). No photo entries still point at old storage.
+- **Copy function:** `import-old-photos` refused requests without its key (403), did the copy, and was then replaced by a stub that returns 410 even with the old key. The key was destroyed.
+- **Staff page:** with mocked rows shaped like the imported ones, the default Open view hides them, Show: All lists them, and the detail shows the reference, rush tag, photo labels and the import note in the notes box. No JavaScript errors. 1440x900 and 390x844.
+- **Not verified here:** the real staff page with live data, because the sandbox browser cannot sign in. First check: open the staff page, choose Show: All, open an imported lead.
+- Nothing in either old project was changed or deleted.
