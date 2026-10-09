@@ -235,7 +235,7 @@ What this repo owns in that project:
 
 | Object | Purpose |
 | --- | --- |
-| `public.leads` | One row per lead. `brand` is `commercial` (this site, and company vehicles from the estimate app) or `retail` (Heritage Collision Experts, and personal vehicles from the estimate app). `source` is `website` or `estimate-app`; estimate app leads also fill `reference` (HCC-YYYY-NNNNNN), VIN, vehicle, plate, mileage, `damage_areas`, rush and needed-by. Staff may change only `status` and `staff_notes`. |
+| `public.leads` | One row per lead. `brand` is `commercial` (this site, and company vehicles from the estimate app) or `retail` (Heritage Collision Experts, and personal vehicles from the estimate app). `source` is `website` or `estimate-app`; estimate app leads also fill `reference` (HCC-YYYY-NNNNNN), VIN, vehicle, plate, mileage, `damage_areas`, rush and needed-by. Staff may change only `status` and `staff_notes`. Managers can also delete a lead from the staff page after typing "delete"; that removes its photos and any estimate-app draft too (migration 20261009000001). |
 | `public.estimate_sessions` | Estimate app drafts, so a customer can start on a computer and finish on a phone. Reached only through the `estimate` function (token stored hashed); no direct access for anyone. Unsent drafts expire after 7 days and are removed with their photos. |
 | `public.staff_members` | Who can sign in, by email. `can_manage_staff` lets them add or remove people and change alert emails. Started with Clay, Addaie and Tom. |
 | `public.lead_alert_recipients` | Who gets the new-lead email for each brand. Addaie for both until Clay sets up a dedicated address. Editable on the staff page. |
