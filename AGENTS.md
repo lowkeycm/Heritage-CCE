@@ -10,7 +10,7 @@ Section 1 is universal doctrine and is shared verbatim across projects. Do not e
 
 ## Section 1: Working Doctrine
 
-Fifteen rules. Every agent, every platform, every operator. Nothing in `people/` or anywhere else relaxes them. Project facts live in Section 2; current state lives in `HANDOFF.md`; how to communicate with the operator lives in `people/`.
+Sixteen rules. Every agent, every platform, every operator. Nothing in `people/` or anywhere else relaxes them. Project facts live in Section 2; current state lives in `HANDOFF.md`; how to communicate with the operator lives in `people/`.
 
 1. **Think with the end in mind.** Before changing anything, answer: what is this for, who uses it and in what moment, what must they walk away with. Hold the result to those answers, not to "it compiles" or "the ticket is closed."
 
@@ -41,6 +41,8 @@ Fifteen rules. Every agent, every platform, every operator. Nothing in `people/`
 14. **Confirm the target before infrastructure operations.** Before any deploy, migration, or secrets change, state which project you are targeting and check it against Section 2. The deploy credential reaches every project on the account, across separate businesses.
 
 15. **Capability honesty.** If you cannot perform a required verification from your platform, say so plainly and hand that part back. Never skip it silently, never substitute a weaker check and present it as the real one. Capability notes recorded in `HANDOFF.md` go stale: retest any "cannot" before relying on it, and update the note when reality has changed.
+
+16. **The Project Management Formula.** The default method for breaking down any build. Start from the ultimate goal and decompose top-down. At every level, ask the same question: (1) What is the ultimate goal? State the outcome, not the activity. (2) What needs to be done? (3) What needs to be done to accomplish that? Repeat until every item is executable by someone who was not in the room. Subtasks are alignment (definition) steps first, build steps second. Go one level at a time and get correction before going deeper. Design from best practices, not from current habits. Document what exists before deciding what is new. A rejected draft stays deleted. Never present guesses as best practices.
 
 ## Section 2 - Project specifics
 
