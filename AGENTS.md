@@ -152,6 +152,9 @@ Approved design is implemented using navy #1A2A4A and orange #E67451. Marketing-
 
 Doctrine item 10 applies. This is mainly an aesthetic redesign, not authorization to rewrite business claims or legal text. Verify current navigation, services, contact details, warranties, and working inquiry paths before carrying them forward. Do not invent proof, credentials, turnaround times, or guarantees. Marketing-Hub must guide future design/copy work; no client brand files have been established yet.
 
+
+Public copy cleanup (Clay, 2026-10-16): eyebrow labels must help visitors identify a page, service, offer, contact detail or next action. Do not add redundant section kickers, decorative category numbers, fake production metadata, photo slogans or design-review labels for atmosphere. Use the visual design for atmosphere. Keep meaningful repair steps and functional gallery position counters.
+
 ### 2.10 Identity facts, source of truth
 
 Current-site audited identity, sources and hours conflict are recorded in `docs/migration-status.md`. Warranty text lives in `src/content/warranty.json`; media provenance in `src/content/media-sources.json`. Legal entity and independent owner approval remain UNVERIFIED. Keep this collision business separate from Heritage Coach and Total Detailing.

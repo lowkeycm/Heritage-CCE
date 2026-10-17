@@ -4,6 +4,14 @@ Read Last Session and Where We Are before working. Apply AGENTS.md doctrine 12: 
 
 ## Last Session
 
+**2026-10-16, Clay / Codex Work Mode, public copy cleanup:** Clay requested the same eyebrow-copy cleanup completed on RTV AI Studios. Removed redundant section kickers, decorative service/value/thumbnail numbering, photo slogans and the stale Design Review footer label from public pages. Kept the homepage repair description, concise page and service labels, actual repair steps, contact and pricing labels, and functional gallery counters. No business claims, warranty wording, form behavior or backend changes.
+
+**Verification:** Production and preview build/content checks pass for all seven public routes, including 287 local links/assets, exact warranty text, white-before/black-after truck ordering, indexing metadata and estimate host routing. Rendered 1440x900 desktop and 390x844 mobile review frames; checked homepage and service-panel spacing and mobile About, Facility, PeelClear and Contact layouts. Settled mobile documents fit the viewport. Verified truck slider keyboard update from 50 to 51 percent and facility gallery next-photo navigation from 1/15 to 2/15. The temporary copy-review.html viewport wrapper is removed from release. Preview commit 3d4a78e9491e0ac93ec8c42ef03b1a8ba73e258f is on PR #18; GitHub and Vercel record the final merge/deployment.
+
+**Target:** Heritage-CCE repository, Vercel heritage-cce (prj_QVxX0xImRE7c83nQF2OAuEmCg7mi), Pride Family Realty team, www.heritagecce.com. Older review-only and pre-cutover notes below are historical; the business domain is already assigned to this project.
+
+### Previous session
+
 **2026-10-09, Clay / Claude Code on the web, old leads imported:** Clay asked whether the old leads were deleted (they were not: 23 in the old form's `estimate_requests`, 16 in the old estimate app's `damage_requests`), then asked to bring them into the new database so they show on the staff page. Clay chose status Closed and to skip tests and bots. Copied 32 real leads (17 old form, 15 old app) into `public.leads` with original dates, the old app's reference numbers, and old statuses and estimate amounts in staff notes; 7 junk records (Clay's 4 tests, 3 bots) were left behind. 126 photos were copied into private `lead-photos/imported/` by a one-time, key-locked edge function `import-old-photos`, which is now a stub returning 410 (Clay can delete it in the dashboard). Verified: an exact fingerprint of the old app rows before insert, every photo present with sizes matching the originals, no import errors, and the staff page showing imported leads only under Show: All (mocked render, 1440x900 and 390x844). Nothing in either old project was changed or deleted. Details in docs/verification.md and AGENTS.md 2.15.
 
 **Next:** Clay or Addaie: open the staff page, choose Show: All, and spot-check an imported lead's photos. Both old projects still hold the originals until Clay retires them.
